@@ -21,4 +21,5 @@ dependencyResolutionManagement {
 
 rootProject.name = "TraktMovies"
 include(":app")
- 
+include(":data")
+include(":domain")
