@@ -20,6 +20,6 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
 
     //paging
-    implementation("androidx.paging:paging-common:3.3.5")
+    implementation("androidx.paging:paging-common:3.3.2")
 
 }

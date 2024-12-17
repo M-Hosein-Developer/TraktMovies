@@ -9,6 +9,11 @@ android {
     namespace = "ir.androidcoder.traktmovies"
     compileSdk = 34
 
+    buildFeatures {
+        buildConfig = true
+        viewBinding = true
+    }
+
     defaultConfig {
         applicationId = "ir.androidcoder.traktmovies"
         minSdk = 24
@@ -26,6 +31,20 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
+
+            buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
+        }
+
+        debug {
+
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
+
+            buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
+
         }
     }
     compileOptions {
@@ -62,8 +81,8 @@ dependencies {
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
 
     // Lifecycle components
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
-    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.8.7")
+    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
+    implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
 
     //Room
     implementation ("androidx.room:room-runtime:2.6.1")
@@ -78,6 +97,6 @@ dependencies {
     annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 
     //paging
-    implementation("androidx.paging:paging-runtime:3.3.5")
+    implementation("androidx.paging:paging-runtime:3.3.2")
 
 }
