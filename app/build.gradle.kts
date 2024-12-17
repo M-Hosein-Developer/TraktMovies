@@ -38,7 +38,7 @@ android {
             buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
             buildConfigField("String", "CLIENT_ID", "\"f60163d7fb20530ffd2b98a8c37ca9a882bcfae897be992f408a5bf0073e5f8b\"")
             buildConfigField("String", "CLIENT_SECRET", "\"60cf187b6332ad18cdb9ee209464f0d1185d9cbcab3a66f96942e21f39447aeb\"")
-            buildConfigField("String", "REDIRECT_URL", "\"https://zapp.com\"")
+            buildConfigField("String", "REDIRECT_URL", "\"movieshosein://zapp.com/code\"")
         }
 
         debug {
@@ -49,16 +49,16 @@ android {
             buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
             buildConfigField("String", "CLIENT_ID", "\"f60163d7fb20530ffd2b98a8c37ca9a882bcfae897be992f408a5bf0073e5f8b\"")
             buildConfigField("String", "CLIENT_SECRET", "\"60cf187b6332ad18cdb9ee209464f0d1185d9cbcab3a66f96942e21f39447aeb\"")
-            buildConfigField("String", "REDIRECT_URL", "\"https://zapp.com\"")
+            buildConfigField("String", "REDIRECT_URL", "\"movieshosein://zapp.com/code\"")
 
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "11"
+        jvmTarget = "18"
     }
 }
 
@@ -70,13 +70,14 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     implementation(project(":data"))
+    implementation(project(":domain"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Hilt
-    implementation ("com.google.dagger:hilt-android:2.53")
-    kapt ("com.google.dagger:hilt-compiler:2.53")
+    implementation ("com.google.dagger:hilt-android:2.50")
+    kapt ("com.google.dagger:hilt-compiler:2.50")
 
     // Retrofit
     implementation ("com.squareup.retrofit2:retrofit:2.11.0")
