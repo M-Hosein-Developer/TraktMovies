@@ -42,6 +42,6 @@ interface TMDBApiService {
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
         @Header("Authorization") authorization: String
-    ): UpcomingResponse
+    ): Response<UpcomingResponse>
 
 }

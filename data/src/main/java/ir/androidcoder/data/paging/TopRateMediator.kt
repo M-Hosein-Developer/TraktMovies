@@ -27,10 +27,10 @@ class TopRateMediator(private val api: TMDBApiService, private val dao: MoviesDa
         }
 
         return try {
-            val response = api.getPopularMovies(page = page , authorization = auth)
+            val response = api.getTopRatedMovies(page = page , authorization = auth)
             if (response.isSuccessful){
                 response.body()!!.results.let { data ->
-                    dao.insertPopular(data.map { it.toDB()})
+                    dao.insertTopRate(data.map { it.toDB()})
                 }
                 MediatorResult.Success(endOfPaginationReached = response.body()!!.results.isEmpty())
             }else{
