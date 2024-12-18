@@ -4,13 +4,13 @@ import android.content.Context
 import dagger.hilt.android.qualifiers.ApplicationContext
 import ir.androidcoder.data.source.AuthSource
 import ir.androidcoder.domain.repository.AuthRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val source : AuthSource , @ApplicationContext private val context: Context) : AuthRepository {
 
-    override suspend fun getAccessToken(code: String, clientId: String, clientSecret: String){
+    override suspend fun getAccessToken(code: String, clientId: String, clientSecret: String) : Flow<Boolean> =
         source.getAccessToken(context , code , clientId , clientSecret)
-    }
 
 
 

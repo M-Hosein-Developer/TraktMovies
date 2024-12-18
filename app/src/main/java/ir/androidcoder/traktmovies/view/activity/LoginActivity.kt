@@ -4,23 +4,30 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
 import ir.androidcoder.data.util.TokenManager
 import ir.androidcoder.traktmovies.BuildConfig
 import ir.androidcoder.traktmovies.R
 import ir.androidcoder.traktmovies.databinding.ActivityLoginBinding
 import ir.androidcoder.traktmovies.viewModel.AuthViewModel
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private val viewModel : AuthViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
+
+    private val clientId = BuildConfig.CLIENT_ID
+    private val redirectUri = BuildConfig.REDIRECT_URL
+    private val clientSecret = BuildConfig.CLIENT_SECRET
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,27 +40,49 @@ class LoginActivity : AppCompatActivity() {
 //            insets
 //        }
 
-        val clientId = BuildConfig.CLIENT_ID
-        val redirectUri = BuildConfig.REDIRECT_URL
-        val clientSecret = BuildConfig.CLIENT_SECRET
+        observeData()
+        initView()
+        handleIntent()
+    }
 
-        binding.btnLogin.setOnClickListener {
-            val authUrl = "https://api.trakt.tv/oauth/authorize?response_type=code&client_id=$clientId&redirect_uri=$redirectUri"
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authUrl))
-            startActivity(intent)
+    private fun observeData() {
+        viewModel.getAccessToken("" , clientId , clientSecret)
+        lifecycleScope.launch {
+            viewModel.isAuth.collect { authState ->
+                if (authState){
+                    MainActivity.showHome(this@LoginActivity)
+                    finish()
+                }
+            }
         }
+    }
+
+    private fun handleIntent() {
 
         intent?.data?.let { uri ->
             val code = uri.getQueryParameter("code")
             val error = uri.getQueryParameter("error")
 
             if (code != null) {
-               viewModel.getAccessToken(code , clientId , clientSecret)
+                viewModel.getAccessToken(code , clientId , clientSecret)
+                Toast.makeText(this, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT).show()
+                MainActivity.showHome(this@LoginActivity)
+                finish()
             } else if (error != null) {
                 Log.e("RedirectError", "Error: $error")
             }else{
 
             }
+        }
+
+    }
+
+    private fun initView() {
+
+        binding.btnLogin.setOnClickListener {
+            val authUrl = "https://api.trakt.tv/oauth/authorize?response_type=code&client_id=$clientId&redirect_uri=$redirectUri"
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse(authUrl))
+            startActivity(intent)
         }
 
     }
