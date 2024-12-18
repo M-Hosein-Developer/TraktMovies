@@ -12,4 +12,9 @@ class AuthRepositoryImpl @Inject constructor(private val source : AuthSource , @
         source.getAccessToken(context , code , clientId , clientSecret)
     }
 
+
+
+    override suspend fun logout(clientId: String , clientSecret: String) {
+        source.logout(context , clientId , clientSecret)
+    }
 }

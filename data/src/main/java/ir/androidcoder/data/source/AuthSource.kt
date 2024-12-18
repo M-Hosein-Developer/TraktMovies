@@ -1,10 +1,8 @@
 package ir.androidcoder.data.source
 
 import android.content.Context
-import android.util.Log
 import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.util.TokenManager
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 class AuthSource @Inject constructor(private val api: TraktApiService) {
@@ -20,6 +18,20 @@ class AuthSource @Inject constructor(private val api: TraktApiService) {
             TokenManager(context).saveRefreshToken(response.refresh_token)
         }
 
+    }
+
+
+
+
+    suspend fun logout(context: Context , clientId: String , clientSecret: String){
+        if (TokenManager(context).getAccessToken() != null) {
+            api.revokeToken(
+                TokenManager(context).getAccessToken()!!,
+                clientId,
+                clientSecret
+            )
+            TokenManager(context).clearTokens()
+        }
     }
 
 }

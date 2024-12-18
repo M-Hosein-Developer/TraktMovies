@@ -8,4 +8,9 @@ class AuthUsecase(private val repository: AuthRepository) {
         repository.getAccessToken(code , clientId , clientSecret)
     }
 
+
+    suspend fun logout(clientId: String , clientSecret: String){
+        repository.logout(clientId , clientSecret)
+    }
+
 }
