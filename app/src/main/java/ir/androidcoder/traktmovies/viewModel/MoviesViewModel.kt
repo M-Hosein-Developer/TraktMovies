@@ -14,4 +14,6 @@ class MoviesViewModel @Inject constructor(private val usecase: MoviesUsecase) : 
 
     val mowPlaying = usecase.allNowPlaying(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
 
+    val popular = usecase.allPopular(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+
 }

@@ -25,7 +25,7 @@ interface TMDBApiService {
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
         @Header("Authorization") authorization: String
-    ): PopularResponse
+    ): Response<PopularResponse>
 
 
     @GET("movie/top_rated")
