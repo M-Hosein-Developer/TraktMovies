@@ -4,6 +4,7 @@ import ir.androidcoder.data.model.NowPlayingResponse
 import ir.androidcoder.data.model.PopularResponse
 import ir.androidcoder.data.model.TopRatedResponse
 import ir.androidcoder.data.model.UpcomingResponse
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
@@ -16,7 +17,7 @@ interface TMDBApiService {
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
         @Header("Authorization") authorization: String
-    ): NowPlayingResponse
+    ): Response<NowPlayingResponse>
 
 
     @GET("movie/popular")

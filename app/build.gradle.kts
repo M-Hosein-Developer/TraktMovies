@@ -105,5 +105,7 @@ dependencies {
 
     //paging
     implementation("androidx.paging:paging-runtime:3.3.2")
+    implementation("androidx.room:room-paging:2.6.1")
+
 
 }
