@@ -35,6 +35,7 @@ class LoginActivity : AppCompatActivity() {
 
         val clientId = BuildConfig.CLIENT_ID
         val redirectUri = BuildConfig.REDIRECT_URL
+        val clientSecret = BuildConfig.CLIENT_SECRET
 
         binding.btnLogin.setOnClickListener {
             val authUrl = "https://api.trakt.tv/oauth/authorize?response_type=code&client_id=$clientId&redirect_uri=$redirectUri"
@@ -47,8 +48,7 @@ class LoginActivity : AppCompatActivity() {
             val error = uri.getQueryParameter("error")
 
             if (code != null) {
-                Log.v("testPre1" , code)
-               viewModel.getAccessToken(code , clientId , BuildConfig.CLIENT_SECRET)
+               viewModel.getAccessToken(code , clientId , clientSecret)
             } else if (error != null) {
                 Log.e("RedirectError", "Error: $error")
             }else{

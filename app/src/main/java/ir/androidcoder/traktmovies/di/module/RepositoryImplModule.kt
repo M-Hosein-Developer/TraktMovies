@@ -1,5 +1,6 @@
 package ir.androidcoder.traktmovies.di.module
 
+import android.content.Context
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +13,6 @@ import ir.androidcoder.data.source.AuthSource
 class RepositoryImplModule {
 
     @Provides
-    fun provideAuthRepoImpl(authSource: AuthSource) : AuthRepositoryImpl = AuthRepositoryImpl(authSource)
+    fun provideAuthRepoImpl(authSource: AuthSource , context: Context) : AuthRepositoryImpl = AuthRepositoryImpl(authSource , context)
 
 }

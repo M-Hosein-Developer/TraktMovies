@@ -6,7 +6,9 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.data.remote.TraktApiService
+import ir.androidcoder.data.remote.interceptor.HeaderInterceptor
 import ir.androidcoder.traktmovies.BuildConfig
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
@@ -18,9 +20,18 @@ object NetworkModule {
 
     @Provides
     @Singleton
+    fun provideOkHttpClient(headerInterceptor: HeaderInterceptor): OkHttpClient {
+        return OkHttpClient.Builder()
+            .addInterceptor(headerInterceptor) // اضافه کردن Interceptor به OkHttpClient
+            .build()
+    }
+
+    @Provides
+    @Singleton
     @Named("trakt_api")
-    fun provideTraktRetrofit(): Retrofit = Retrofit.Builder()
+    fun provideTraktRetrofit(okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
         .baseUrl(BuildConfig.BASE_URL_Trakt)
+        .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

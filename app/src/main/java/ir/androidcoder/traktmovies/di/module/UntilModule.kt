@@ -9,8 +9,8 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 
 @Module
-@InstallIn(ActivityComponent::class)
-class UntilModule {
+@InstallIn(SingletonComponent::class)
+object UntilModule {
 
     @Provides
     fun provideContext(@ApplicationContext context : Context) : Context = context.applicationContext
