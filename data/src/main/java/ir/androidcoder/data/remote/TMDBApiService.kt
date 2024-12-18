@@ -34,7 +34,7 @@ interface TMDBApiService {
         @Query("page") page: Int = 1,
         @Header("accept") accept: String = "application/json",
         @Header("Authorization") authorization: String
-    ): TopRatedResponse
+    ): Response<TopRatedResponse>
 
 
     @GET("movie/upcoming")

@@ -16,4 +16,6 @@ class MoviesViewModel @Inject constructor(private val usecase: MoviesUsecase) : 
 
     val popular = usecase.allPopular(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
 
+    val topRate = usecase.allTopRate(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+
 }
