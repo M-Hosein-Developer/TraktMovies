@@ -18,4 +18,6 @@ class MoviesViewModel @Inject constructor(private val usecase: MoviesUsecase) : 
 
     val topRate = usecase.allTopRate(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
 
+    val upcoming = usecase.allUpcoming(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+
 }

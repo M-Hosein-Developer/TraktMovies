@@ -5,6 +5,7 @@ import ir.androidcoder.data.source.MoviesSource
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
+import ir.androidcoder.domain.entities.UpcomingDEntity
 import ir.androidcoder.domain.repository.MoviesRepository
 import javax.inject.Inject
 
@@ -15,6 +16,8 @@ class MoviesRepositoryImpl @Inject constructor(private val source: MoviesSource)
     override fun allPopular(auth: String): Pager<Int, PopularDEntity> = source.allPopular(auth)
 
     override fun topRate(auth: String): Pager<Int, TopRateDEntity> = source.allTopRate(auth)
+
+    override fun upcoming(auth: String): Pager<Int, UpcomingDEntity> = source.allUpcoming(auth)
 
 
 }

@@ -4,6 +4,7 @@ import androidx.paging.Pager
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
+import ir.androidcoder.domain.entities.UpcomingDEntity
 
 interface MoviesRepository {
 
@@ -12,5 +13,7 @@ interface MoviesRepository {
     fun allPopular(auth : String) : Pager<Int, PopularDEntity>
 
     fun topRate(auth : String) : Pager<Int, TopRateDEntity>
+
+    fun upcoming(auth : String) : Pager<Int, UpcomingDEntity>
 
 }

@@ -8,6 +8,7 @@ import androidx.room.Query
 import ir.androidcoder.data.local.entity.NowPlayingEntity
 import ir.androidcoder.data.local.entity.PopularEntity
 import ir.androidcoder.data.local.entity.TopRateEntity
+import ir.androidcoder.data.local.entity.UpcomingEntity
 
 @Dao
 interface MoviesDao {
@@ -29,4 +30,10 @@ interface MoviesDao {
 
     @Query("SELECT * FROM TopRateEntity")
     fun getAllTopRate() : PagingSource<Int , TopRateEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertUpcoming(data : List<UpcomingEntity>)
+
+    @Query("SELECT * FROM UpcomingEntity")
+    fun getAllUpcoming() : PagingSource<Int , UpcomingEntity>
 }

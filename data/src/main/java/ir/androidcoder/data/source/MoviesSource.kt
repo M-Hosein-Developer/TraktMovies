@@ -10,10 +10,13 @@ import ir.androidcoder.data.paging.PopularMediator
 import ir.androidcoder.data.paging.PopularPagerSource
 import ir.androidcoder.data.paging.TopRateMediator
 import ir.androidcoder.data.paging.TopRatePagerSource
+import ir.androidcoder.data.paging.UpcomingMediator
+import ir.androidcoder.data.paging.UpcomingPagerSource
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
+import ir.androidcoder.domain.entities.UpcomingDEntity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -35,6 +38,12 @@ class MoviesSource @Inject constructor(private val apiService: TMDBApiService , 
         config = PagingConfig(7 , enablePlaceholders = false),
         remoteMediator = TopRateMediator(apiService , dao , auth),
         pagingSourceFactory = { TopRatePagerSource(dao.getAllTopRate()) }
+    )
+
+    fun allUpcoming(auth: String) : Pager<Int , UpcomingDEntity> = Pager(
+        config = PagingConfig(7 , enablePlaceholders = false),
+        remoteMediator = UpcomingMediator(apiService , dao , auth),
+        pagingSourceFactory = { UpcomingPagerSource(dao.getAllUpcoming()) }
     )
 
 }
