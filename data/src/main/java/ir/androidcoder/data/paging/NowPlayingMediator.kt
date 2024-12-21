@@ -8,6 +8,9 @@ import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.NowPlayingDEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
 class NowPlayingMediator(private val api: TMDBApiService, private val dao: MoviesDao , private val auth : String) : RemoteMediator<Int , NowPlayingDEntity>(){
@@ -29,8 +32,11 @@ class NowPlayingMediator(private val api: TMDBApiService, private val dao: Movie
         return try {
             val response = api.getNowPlayingMovies(page = page , authorization = auth)
             if (response.isSuccessful){
-                response.body()!!.results.let { data ->
-                    dao.insertNowPlaying(data.map { it.toDB()})
+                response.body()?.results.let { data ->
+                    val dataDb = data!!.map { it.toDB() }
+                    withContext(Dispatchers.IO) {
+                        dao.insertNowPlaying(dataDb)
+                    }
                 }
                 MediatorResult.Success(endOfPaginationReached = response.body()!!.results.isEmpty())
             }else{

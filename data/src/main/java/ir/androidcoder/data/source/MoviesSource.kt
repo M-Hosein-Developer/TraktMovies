@@ -23,25 +23,25 @@ import javax.inject.Inject
 class MoviesSource @Inject constructor(private val apiService: TMDBApiService , private val dao: MoviesDao) {
 
     fun allNowPlaying(auth : String) : Pager<Int , NowPlayingDEntity> = Pager(
-        config = PagingConfig(7 , enablePlaceholders = false),
+        config = PagingConfig(6 , enablePlaceholders = false),
         remoteMediator = NowPlayingMediator(apiService , dao , auth),
         pagingSourceFactory = { NowPlayingPagerSource(dao.getAllNowPlaying()) }
     )
 
     fun allPopular(auth: String) : Pager<Int , PopularDEntity> = Pager(
-        config = PagingConfig(7 , enablePlaceholders = false),
+        config = PagingConfig(6 , enablePlaceholders = false),
         remoteMediator = PopularMediator(apiService , dao , auth),
         pagingSourceFactory = { PopularPagerSource(dao.getAllPopular()) }
     )
 
     fun allTopRate(auth: String) : Pager<Int , TopRateDEntity> = Pager(
-        config = PagingConfig(7 , enablePlaceholders = false),
+        config = PagingConfig(6 , enablePlaceholders = false),
         remoteMediator = TopRateMediator(apiService , dao , auth),
         pagingSourceFactory = { TopRatePagerSource(dao.getAllTopRate()) }
     )
 
     fun allUpcoming(auth: String) : Pager<Int , UpcomingDEntity> = Pager(
-        config = PagingConfig(7 , enablePlaceholders = false),
+        config = PagingConfig(6 , enablePlaceholders = false),
         remoteMediator = UpcomingMediator(apiService , dao , auth),
         pagingSourceFactory = { UpcomingPagerSource(dao.getAllUpcoming()) }
     )

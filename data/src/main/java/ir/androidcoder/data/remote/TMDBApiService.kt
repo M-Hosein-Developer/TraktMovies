@@ -7,20 +7,22 @@ import ir.androidcoder.data.model.UpcomingResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
+import retrofit2.http.Headers
 import retrofit2.http.Query
 
 interface TMDBApiService {
 
-
-    @GET("movie/now_playing")
+    @GET("now_playing")
+    @Headers("accept: application/json")
     suspend fun getNowPlayingMovies(
         @Query("language") language: String = "en-US",
-        @Query("page") page: Int = 1,
+        @Query("page") page: Int,
         @Header("Authorization") authorization: String
     ): Response<NowPlayingResponse>
 
 
-    @GET("movie/popular")
+    @GET("popular")
+    @Headers("accept: application/json")
     suspend fun getPopularMovies(
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
@@ -28,7 +30,8 @@ interface TMDBApiService {
     ): Response<PopularResponse>
 
 
-    @GET("movie/top_rated")
+    @GET("top_rated")
+    @Headers("accept: application/json")
     suspend fun getTopRatedMovies(
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
@@ -37,7 +40,8 @@ interface TMDBApiService {
     ): Response<TopRatedResponse>
 
 
-    @GET("movie/upcoming")
+    @GET("upcoming")
+    @Headers("accept: application/json")
     suspend fun getUpcomingMovies(
         @Query("language") language: String = "en-US",
         @Query("page") page: Int = 1,
