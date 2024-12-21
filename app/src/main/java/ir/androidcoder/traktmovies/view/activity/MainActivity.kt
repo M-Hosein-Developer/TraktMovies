@@ -2,15 +2,26 @@ package ir.androidcoder.traktmovies.view.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.util.Log
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.paging.map
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.MultiTransformation
+import com.bumptech.glide.load.resource.bitmap.CenterCrop
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
-import ir.androidcoder.traktmovies.R
 import ir.androidcoder.traktmovies.databinding.ActivityMainBinding
+import ir.androidcoder.traktmovies.util.BlurTransformation
+import ir.androidcoder.traktmovies.view.adapter.NowPlayingAdapter
+import ir.androidcoder.traktmovies.view.adapter.PopularAdapter
+import ir.androidcoder.traktmovies.view.adapter.UpcomingAdapter
+import ir.androidcoder.traktmovies.view.adapter.basaAdapter.TopRateAdapter
 import ir.androidcoder.traktmovies.viewModel.MoviesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -29,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        enableEdgeToEdge()
+        enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 //        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -38,12 +49,76 @@ class MainActivity : AppCompatActivity() {
 //            insets
 //        }
 
+
+        initData()
+        observeData()
+
+
+    }
+
+    private fun initData() {
+
+        binding.apply {
+
+            val transformation = MultiTransformation(CenterCrop(), RoundedCorners(55))
+            val overlayDrawable = ColorDrawable(Color.parseColor("#91000000"))
+            imgBackground.setForeground(overlayDrawable)
+
+            //layout manager
+            rvNowPlaying.layoutManager = LinearLayoutManager(this@MainActivity , LinearLayoutManager.HORIZONTAL , false)
+            rvPopular.layoutManager = LinearLayoutManager(this@MainActivity , LinearLayoutManager.HORIZONTAL , false)
+            rvTopRate.layoutManager = LinearLayoutManager(this@MainActivity , LinearLayoutManager.HORIZONTAL , false)
+            rvUpcoming.layoutManager = LinearLayoutManager(this@MainActivity , LinearLayoutManager.HORIZONTAL , false)
+
+            //setup adapter
+            rvNowPlaying.adapter = NowPlayingAdapter(
+                onCover = { cover  , title->
+                    txtTitle.text = title
+                    Glide.with(this@MainActivity)
+                        .load(cover)
+                        .transform(BlurTransformation(this@MainActivity, 15))
+                        .centerCrop()
+                        .into(imgBackground)
+                    Glide.with(this@MainActivity)
+                        .load(cover)
+                        .apply(RequestOptions.bitmapTransform(transformation))
+                        .into(imgMainCover)
+
+                }
+            )
+
+            rvPopular.adapter = PopularAdapter()
+            rvTopRate.adapter = TopRateAdapter()
+            rvUpcoming.adapter = UpcomingAdapter()
+
+
+        }
+
+    }
+
+    private fun observeData(){
         lifecycleScope.launch {
-            viewModel.mowPlaying.collectLatest {
-                Log.v("testData" , it.toString())
+            viewModel.mowPlaying.collectLatest { data ->
+                (binding.rvNowPlaying.adapter as NowPlayingAdapter).submitData(data)
             }
         }
 
+        lifecycleScope.launch {
+            viewModel.popular.collectLatest { data ->
+                (binding.rvPopular.adapter as PopularAdapter).submitData(data)
+            }
+        }
 
+        lifecycleScope.launch {
+            viewModel.topRate.collectLatest { data ->
+                (binding.rvTopRate.adapter as TopRateAdapter).submitData(data)
+            }
+        }
+
+        lifecycleScope.launch {
+            viewModel.upcoming.collectLatest { data ->
+                (binding.rvUpcoming.adapter as UpcomingAdapter).submitData(data)
+            }
+        }
     }
 }

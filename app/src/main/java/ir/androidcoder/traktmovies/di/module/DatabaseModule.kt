@@ -21,7 +21,7 @@ object DatabaseModule {
         MoviesDatabase::class.java,
         "moviesDb.db"
     )
-        .fallbackToDestructiveMigration()
+//        .fallbackToDestructiveMigration()
         .build()
 
     @Provides

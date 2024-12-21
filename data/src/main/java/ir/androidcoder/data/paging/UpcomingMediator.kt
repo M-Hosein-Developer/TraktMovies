@@ -8,6 +8,8 @@ import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.UpcomingDEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
 class UpcomingMediator(private val api: TMDBApiService, private val dao: MoviesDao, private val auth : String) : RemoteMediator<Int , UpcomingDEntity>(){
@@ -29,8 +31,11 @@ class UpcomingMediator(private val api: TMDBApiService, private val dao: MoviesD
         return try {
             val response = api.getUpcomingMovies(page = page , authorization = auth)
             if (response.isSuccessful){
-                response.body()!!.results.let { data ->
-                    dao.insertUpcoming(data.map { it.toDB()})
+                response.body()?.results.let { data ->
+                    withContext(Dispatchers.IO) {
+                        val dataDb = data!!.map { it.toDB() }
+                        dao.insertUpcoming(dataDb)
+                    }
                 }
                 MediatorResult.Success(endOfPaginationReached = response.body()!!.results.isEmpty())
             }else{
