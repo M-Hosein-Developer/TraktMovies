@@ -7,7 +7,7 @@ import ir.androidcoder.data.local.entity.PopularEntity
 import ir.androidcoder.data.local.entity.TopRateEntity
 import ir.androidcoder.data.local.entity.UpcomingEntity
 
-@Database(entities = [NowPlayingEntity::class , PopularEntity::class , TopRateEntity::class , UpcomingEntity::class], version = 2 , exportSchema = false)
+@Database(entities = [NowPlayingEntity::class , PopularEntity::class , TopRateEntity::class , UpcomingEntity::class], version = 3 , exportSchema = false)
 abstract class MoviesDatabase : RoomDatabase() {
 
     abstract fun MoviesDao(): MoviesDao

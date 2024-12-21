@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 data class PopularEntity(
     val adult: Boolean,
     val backdrop_path: String,
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val original_language: String,
     val original_title: String,

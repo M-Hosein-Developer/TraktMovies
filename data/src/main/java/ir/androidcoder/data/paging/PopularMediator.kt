@@ -8,6 +8,8 @@ import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.PopularDEntity
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
 class PopularMediator(private val api: TMDBApiService, private val dao: MoviesDao, private val auth : String) : RemoteMediator<Int , PopularDEntity>(){
@@ -29,8 +31,11 @@ class PopularMediator(private val api: TMDBApiService, private val dao: MoviesDa
         return try {
             val response = api.getPopularMovies(page = page , authorization = auth)
             if (response.isSuccessful){
-                response.body()!!.results.let { data ->
-                    dao.insertPopular(data.map { it.toDB()})
+                response.body()?.results.let { data ->
+                    withContext(Dispatchers.IO) {
+                        val dataDb = data!!.map { it.toDB() }
+                        dao.insertPopular(dataDb)
+                    }
                 }
                 MediatorResult.Success(endOfPaginationReached = response.body()!!.results.isEmpty())
             }else{

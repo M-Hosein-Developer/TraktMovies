@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class NowPlayingEntity(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = false)
     val id: Int,
     val adult: Boolean,
     val backdrop_path: String,

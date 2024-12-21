@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/home"
+        />
+
+    <item
+        android:id="@+id/search"
+        android:title="Search"
+        android:icon="@drawable/search_1"
+        />
+
+    <item
+        android:id="@+id/hamburger"
+        android:title="More"
+        android:icon="@drawable/hamburger"
+        />
+
+    <item
+        android:id="@+id/setting"
+        android:title="Setting"
+        android:icon="@drawable/setting"
+        />
+
+</menu>

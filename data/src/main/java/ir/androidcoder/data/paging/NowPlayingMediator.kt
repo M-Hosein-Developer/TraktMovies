@@ -9,7 +9,6 @@ import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
