@@ -17,6 +17,15 @@
         android:theme="@style/Theme.TraktMovies"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.SettingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.WatchListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.activity.SearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.DetailActivity"
             android:exported="false" />
         <activity

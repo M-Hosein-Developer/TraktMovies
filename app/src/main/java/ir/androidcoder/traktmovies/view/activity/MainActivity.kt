@@ -7,7 +7,6 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
@@ -16,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.bumptech.glide.request.RequestOptions
 import dagger.hilt.android.AndroidEntryPoint
+import ir.androidcoder.traktmovies.R
 import ir.androidcoder.traktmovies.databinding.ActivityMainBinding
 import ir.androidcoder.traktmovies.util.BlurTransformation
 import ir.androidcoder.traktmovies.view.adapter.NowPlayingAdapter
@@ -27,10 +27,10 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
     private val viewModel :  MoviesViewModel by viewModels()
-    private lateinit var binding: ActivityMainBinding
+//    private lateinit var binding: ActivityMainBinding
 
     companion object{
         fun showHome(context: Context) {
@@ -41,22 +41,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
+        val binding = ActivityMainBinding.inflate(layoutInflater, findViewById(R.id.container), true)
 
-
-        initData()
-        observeData()
+        initData(binding)
+        observeData(binding)
 
 
     }
 
-    private fun initData() {
+    override fun getLayoutResourceId(): Int = R.layout.activity_base
+
+    private fun initData(binding: ActivityMainBinding) {
 
         binding.apply {
 
@@ -103,7 +98,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun observeData(){
+    private fun observeData(binding: ActivityMainBinding) {
         lifecycleScope.launch {
             viewModel.mowPlaying.collectLatest { data ->
                 (binding.rvNowPlaying.adapter as NowPlayingAdapter).submitData(data)
