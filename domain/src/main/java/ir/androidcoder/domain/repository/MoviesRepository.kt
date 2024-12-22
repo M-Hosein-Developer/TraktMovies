@@ -1,6 +1,7 @@
 package ir.androidcoder.domain.repository
 
 import androidx.paging.Pager
+import ir.androidcoder.domain.entities.MovieDetailEntity
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
@@ -16,4 +17,5 @@ interface MoviesRepository {
 
     fun upcoming(auth : String) : Pager<Int, UpcomingDEntity>
 
+    suspend fun movieDetail(id : Int , auth : String) : MovieDetailEntity?
 }

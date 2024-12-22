@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import ir.androidcoder.data.local.MoviesDao
+import ir.androidcoder.data.mapper.toDomain
 import ir.androidcoder.data.paging.NowPlayingMediator
 import ir.androidcoder.data.paging.NowPlayingPagerSource
 import ir.androidcoder.data.paging.PopularMediator
@@ -13,6 +14,7 @@ import ir.androidcoder.data.paging.TopRatePagerSource
 import ir.androidcoder.data.paging.UpcomingMediator
 import ir.androidcoder.data.paging.UpcomingPagerSource
 import ir.androidcoder.data.remote.TMDBApiService
+import ir.androidcoder.domain.entities.MovieDetailEntity
 import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
@@ -45,5 +47,7 @@ class MoviesSource @Inject constructor(private val apiService: TMDBApiService , 
         remoteMediator = UpcomingMediator(apiService , dao , auth),
         pagingSourceFactory = { UpcomingPagerSource(dao.getAllUpcoming()) }
     )
+
+    suspend fun getMovieDetail(id : Int , auth: String) : MovieDetailEntity? = apiService.getMoviesDetail(id , auth).body()?.toDomain()
 
 }
