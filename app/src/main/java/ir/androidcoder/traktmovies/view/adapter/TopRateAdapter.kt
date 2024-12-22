@@ -1,4 +1,4 @@
-package ir.androidcoder.traktmovies.view.adapter.basaAdapter
+package ir.androidcoder.traktmovies.view.adapter
 
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,8 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ir.androidcoder.domain.entities.TopRateDEntity
 import ir.androidcoder.traktmovies.databinding.NowPlayingItemBinding
+import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BaseDiffCallback
+import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BasePagingAdapter
 
-class TopRateAdapter : BasePagingAdapter<TopRateDEntity, TopRateAdapter.TopRateViewHolder>(
+class TopRateAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<TopRateDEntity, TopRateAdapter.TopRateViewHolder>(
     BaseDiffCallback(
         {oldItem, newItem -> oldItem.id == newItem.id},
         {oldItem, newItem -> oldItem == newItem}
@@ -26,6 +28,10 @@ class TopRateAdapter : BasePagingAdapter<TopRateDEntity, TopRateAdapter.TopRateV
 
                 txtTitle.text = data.title
                 txtDate.text = data.release_date
+
+                itemView.setOnClickListener {
+                    onClick(data.id)
+                }
 
             }
         }

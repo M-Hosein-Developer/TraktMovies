@@ -10,7 +10,7 @@ import ir.androidcoder.traktmovies.databinding.NowPlayingItemBinding
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BaseDiffCallback
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BasePagingAdapter
 
-class NowPlayingAdapter(val onCover :(String , String) -> Unit) : BasePagingAdapter<NowPlayingDEntity, NowPlayingAdapter.NowPlayingViewHolder>(
+class NowPlayingAdapter(val onCover :(String , String) -> Unit , val onClick :(Int) -> Unit) : BasePagingAdapter<NowPlayingDEntity, NowPlayingAdapter.NowPlayingViewHolder>(
     BaseDiffCallback(
         {oldItem, newItem -> oldItem.id == newItem.id},
         {oldItem, newItem -> oldItem == newItem}
@@ -30,6 +30,10 @@ class NowPlayingAdapter(val onCover :(String , String) -> Unit) : BasePagingAdap
                     txtDate.text = data.release_date
 
                     onCover("https://image.tmdb.org/t/p/w780" + data.backdrop_path , data.title)
+
+                itemView.setOnClickListener {
+                    onClick(data.id)
+                }
 
             }
         }

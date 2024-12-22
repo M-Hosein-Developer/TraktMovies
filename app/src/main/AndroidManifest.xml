@@ -17,28 +17,31 @@
         android:theme="@style/Theme.TraktMovies"
         tools:targetApi="31">
         <activity
+            android:name=".view.activity.DetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.activity.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
-                <data
-                    android:scheme="movieshosein"
-                    android:host="zapp.com"
-                    android:path="/code"/>
-            </intent-filter>
+                <action android:name="android.intent.action.VIEW" />
 
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="zapp.com"
+                    android:path="/code"
+                    android:scheme="movieshosein" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".view.activity.MainActivity"
-            android:exported="true"/>
-
+            android:exported="true" />
     </application>
 
 </manifest>

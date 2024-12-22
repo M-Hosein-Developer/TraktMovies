@@ -20,8 +20,8 @@ import ir.androidcoder.traktmovies.databinding.ActivityMainBinding
 import ir.androidcoder.traktmovies.util.BlurTransformation
 import ir.androidcoder.traktmovies.view.adapter.NowPlayingAdapter
 import ir.androidcoder.traktmovies.view.adapter.PopularAdapter
+import ir.androidcoder.traktmovies.view.adapter.TopRateAdapter
 import ir.androidcoder.traktmovies.view.adapter.UpcomingAdapter
-import ir.androidcoder.traktmovies.view.adapter.basaAdapter.TopRateAdapter
 import ir.androidcoder.traktmovies.viewModel.MoviesViewModel
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -83,14 +83,21 @@ class MainActivity : AppCompatActivity() {
                         .load(cover)
                         .apply(RequestOptions.bitmapTransform(transformation))
                         .into(imgMainCover)
-
+                },
+                onClick = { id ->
+                    DetailActivity.showDetail(this@MainActivity , id)
                 }
             )
 
-            rvPopular.adapter = PopularAdapter()
-            rvTopRate.adapter = TopRateAdapter()
-            rvUpcoming.adapter = UpcomingAdapter()
-
+            rvPopular.adapter = PopularAdapter{ id ->
+                DetailActivity.showDetail(this@MainActivity , id)
+            }
+            rvTopRate.adapter = TopRateAdapter{ id ->
+                DetailActivity.showDetail(this@MainActivity , id)
+            }
+            rvUpcoming.adapter = UpcomingAdapter{ id ->
+                DetailActivity.showDetail(this@MainActivity , id)
+            }
 
         }
 

@@ -10,7 +10,7 @@ import ir.androidcoder.traktmovies.databinding.NowPlayingItemBinding
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BaseDiffCallback
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BasePagingAdapter
 
-class PopularAdapter : BasePagingAdapter<PopularDEntity, PopularAdapter.PopularViewHolder>(
+class PopularAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<PopularDEntity, PopularAdapter.PopularViewHolder>(
     BaseDiffCallback(
         {oldItem, newItem -> oldItem.id == newItem.id},
         {oldItem, newItem -> oldItem == newItem}
@@ -28,6 +28,10 @@ class PopularAdapter : BasePagingAdapter<PopularDEntity, PopularAdapter.PopularV
 
                 txtTitle.text = data.title
                 txtDate.text = data.release_date
+
+                itemView.setOnClickListener {
+                    onClick(data.id)
+                }
 
             }
         }

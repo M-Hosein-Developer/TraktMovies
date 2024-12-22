@@ -10,7 +10,7 @@ import ir.androidcoder.traktmovies.databinding.NowPlayingItemBinding
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BaseDiffCallback
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BasePagingAdapter
 
-class UpcomingAdapter : BasePagingAdapter<UpcomingDEntity, UpcomingAdapter.UpcomingViewHolder>(
+class UpcomingAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<UpcomingDEntity, UpcomingAdapter.UpcomingViewHolder>(
     BaseDiffCallback(
         {oldItem, newItem -> oldItem.id == newItem.id},
         {oldItem, newItem -> oldItem == newItem}
@@ -28,6 +28,10 @@ class UpcomingAdapter : BasePagingAdapter<UpcomingDEntity, UpcomingAdapter.Upcom
 
                 txtTitle.text = data.title
                 txtDate.text = data.release_date
+
+                itemView.setOnClickListener {
+                    onClick(data.id)
+                }
 
             }
         }
