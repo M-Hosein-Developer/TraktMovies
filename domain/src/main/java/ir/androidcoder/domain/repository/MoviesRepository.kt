@@ -6,6 +6,7 @@ import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
 import ir.androidcoder.domain.entities.UpcomingDEntity
+import ir.androidcoder.domain.entities.YoutubeEntity
 
 interface MoviesRepository {
 
@@ -18,4 +19,6 @@ interface MoviesRepository {
     fun upcoming(auth : String) : Pager<Int, UpcomingDEntity>
 
     suspend fun movieDetail(id : Int , auth : String) : MovieDetailEntity?
+
+    suspend fun getYoutubeVideo(id: Int, auth: String) : List<YoutubeEntity>?
 }

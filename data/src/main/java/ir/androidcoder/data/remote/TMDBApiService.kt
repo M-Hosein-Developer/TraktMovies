@@ -5,6 +5,7 @@ import ir.androidcoder.data.model.NowPlayingResponse
 import ir.androidcoder.data.model.PopularResponse
 import ir.androidcoder.data.model.TopRatedResponse
 import ir.androidcoder.data.model.UpcomingResponse
+import ir.androidcoder.data.model.YoutubeResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -56,5 +57,12 @@ interface TMDBApiService {
         @Path("movie_id") movieId: Int,
         @Header("Authorization") authorization: String
     ) : Response<MovieDetailResponse>
+
+    @GET("{movie_id}/videos?language=en-US")
+    @Headers("accept: application/json")
+    suspend fun getYoutubeVideo(
+        @Path("movie_id") movieId: Int,
+        @Header("Authorization") authorization: String
+    ) : Response<YoutubeResponse>
 
 }

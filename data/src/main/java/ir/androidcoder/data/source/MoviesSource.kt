@@ -19,6 +19,7 @@ import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
 import ir.androidcoder.domain.entities.UpcomingDEntity
+import ir.androidcoder.domain.entities.YoutubeEntity
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
@@ -49,5 +50,7 @@ class MoviesSource @Inject constructor(private val apiService: TMDBApiService , 
     )
 
     suspend fun getMovieDetail(id : Int , auth: String) : MovieDetailEntity? = apiService.getMoviesDetail(id , auth).body()?.toDomain()
+
+    suspend fun getYoutubeVideo(id: Int , auth: String) : List<YoutubeEntity>? = apiService.getYoutubeVideo(id , auth).body()?.results?.map { it.toDomain() }
 
 }

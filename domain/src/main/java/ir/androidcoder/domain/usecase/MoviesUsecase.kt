@@ -18,4 +18,7 @@ class MoviesUsecase(private val repository: MoviesRepository) {
     fun allUpcoming(auth: String): Pager<Int, UpcomingDEntity> = repository.upcoming(auth)
 
     suspend fun getMovieDetail(id : Int , auth: String) = repository.movieDetail(id , auth)
+
+    suspend fun getYoutubeVideo(id: Int , auth: String) = repository.getYoutubeVideo(id , auth)
+
 }

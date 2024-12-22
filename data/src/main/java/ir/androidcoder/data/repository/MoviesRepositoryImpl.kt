@@ -7,6 +7,7 @@ import ir.androidcoder.domain.entities.NowPlayingDEntity
 import ir.androidcoder.domain.entities.PopularDEntity
 import ir.androidcoder.domain.entities.TopRateDEntity
 import ir.androidcoder.domain.entities.UpcomingDEntity
+import ir.androidcoder.domain.entities.YoutubeEntity
 import ir.androidcoder.domain.repository.MoviesRepository
 import javax.inject.Inject
 
@@ -22,5 +23,6 @@ class MoviesRepositoryImpl @Inject constructor(private val source: MoviesSource)
 
     override suspend fun movieDetail(id: Int, auth: String): MovieDetailEntity? = source.getMovieDetail(id , auth)
 
+    override suspend fun getYoutubeVideo(id: Int, auth: String): List<YoutubeEntity>? = source.getYoutubeVideo(id , auth)
 
 }
