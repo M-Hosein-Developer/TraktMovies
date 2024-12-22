@@ -109,5 +109,8 @@ dependencies {
     implementation("androidx.paging:paging-runtime:3.3.2")
     implementation("androidx.room:room-paging:2.6.1")
 
+    //youtube
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
+    implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30")
 
 }

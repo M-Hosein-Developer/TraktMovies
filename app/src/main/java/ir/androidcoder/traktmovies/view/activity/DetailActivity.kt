@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.webkit.WebSettings
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -20,6 +21,7 @@ import ir.androidcoder.traktmovies.util.BlurTransformation
 import ir.androidcoder.traktmovies.util.Constant.DETAIL_ID
 import ir.androidcoder.traktmovies.viewModel.MoviesViewModel
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class DetailActivity : AppCompatActivity() {
@@ -50,6 +52,7 @@ class DetailActivity : AppCompatActivity() {
         handleIntent()
         initView()
         backPressed()
+        youtubePlayer()
     }
 
     private fun backPressed() {
@@ -94,6 +97,21 @@ class DetailActivity : AppCompatActivity() {
                         txtRatting.text = data.vote_average.toString()
                         txtMyRatting.text = data.vote_count.toString()
 
+
+                    }
+                }
+            }
+        }
+    }
+
+    private fun youtubePlayer() {
+        binding.apply {
+            lifecycleScope.launch {
+                viewModel.youtubeUrl.collect { data ->
+                    if (data != null) {
+                        webview.settings.javaScriptEnabled = true
+                        webview.settings.pluginState = WebSettings.PluginState.ON
+                        webview.loadUrl("https://www.youtube.com/embed/${data[0].key}")
                     }
                 }
             }
