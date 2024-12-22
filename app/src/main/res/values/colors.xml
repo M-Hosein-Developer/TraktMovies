@@ -7,6 +7,6 @@
 
     <color name="back_gray">#121212</color>
     <color name="back_gray_blur">#91000000</color>
-
+    <color name="blue">#1f5afe</color>
 
 </resources>
