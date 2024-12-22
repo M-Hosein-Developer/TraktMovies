@@ -1,5 +1,6 @@
 package ir.androidcoder.data.remote
 
+import ir.androidcoder.data.model.MovieDetailResponse
 import ir.androidcoder.data.model.NowPlayingResponse
 import ir.androidcoder.data.model.PopularResponse
 import ir.androidcoder.data.model.TopRatedResponse
@@ -8,6 +9,7 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface TMDBApiService {
@@ -47,5 +49,12 @@ interface TMDBApiService {
         @Query("page") page: Int = 1,
         @Header("Authorization") authorization: String
     ): Response<UpcomingResponse>
+
+    @GET("{movie_id}?language=en-US")
+    @Headers("accept: application/json")
+    suspend fun getMoviesDetail(
+        @Path("movie_id") movieId: Int,
+        @Header("Authorization") authorization: String
+    ) : Response<MovieDetailResponse>
 
 }
