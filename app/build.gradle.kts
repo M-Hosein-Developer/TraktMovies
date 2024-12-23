@@ -34,7 +34,7 @@ android {
                 "proguard-rules.pro"
             )
 
-            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
 
             buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
@@ -45,7 +45,7 @@ android {
 
         debug {
 
-            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/movie/\"")
+            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
 
             buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")

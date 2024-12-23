@@ -2,7 +2,7 @@ package ir.androidcoder.data.source
 
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
-import ir.androidcoder.data.model.remotePagingSource.SearchPagingSource
+import ir.androidcoder.data.paging.remotePagingSource.SearchPagingSource
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.domain.entities.SearchEntity
 import javax.inject.Inject

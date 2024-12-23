@@ -68,7 +68,7 @@ interface TMDBApiService {
 
     @GET("search/collection")
     @Headers("accept: application/json")
-    fun searchCollection(
+    suspend fun searchCollection(
         @Header("Authorization") authorization: String,
         @Query("query") query: String,
         @Query("include_adult") includeAdult: Boolean = false,

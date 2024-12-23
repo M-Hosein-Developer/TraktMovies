@@ -1,4 +1,4 @@
-package ir.androidcoder.data.model.remotePagingSource
+package ir.androidcoder.data.paging.remotePagingSource
 
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
