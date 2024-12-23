@@ -34,24 +34,15 @@ android {
                 "proguard-rules.pro"
             )
 
-            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
+            buildConfigField("String", "BASE_URL_TMDB", project.property("BASE_URL_TMDB") as String)
+            buildConfigField("String", "BASE_URL_Trakt", project.property("BASE_URL_TRAKT") as String)
 
-            buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
-            buildConfigField("String", "CLIENT_ID", "\"f60163d7fb20530ffd2b98a8c37ca9a882bcfae897be992f408a5bf0073e5f8b\"")
-            buildConfigField("String", "CLIENT_SECRET", "\"60cf187b6332ad18cdb9ee209464f0d1185d9cbcab3a66f96942e21f39447aeb\"")
-            buildConfigField("String", "REDIRECT_URL", "\"movieshosein://zapp.com/code\"")
         }
 
         debug {
 
-            buildConfigField("String", "BASE_URL_TMDB", "\"https://api.themoviedb.org/3/\"")
-            buildConfigField("String", "AUTHORIZATION_TMDB", "\"Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4N2E0MDAyZTM2ZGJjMjgxZDlhNTA4MTkwMzQzNjMxMSIsIm5iZiI6MTcxMTYxNDAzMC40OTQwMDAyLCJzdWIiOiI2NjA1Mjg0ZWVjYWVmNTAxN2FhZmU3MGIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.cv2-xhrEYwZujwzSydww_0yI1P1L4u3zm55YI4-Puyo\"")
-
-            buildConfigField("String", "BASE_URL_Trakt", "\"https://api.trakt.tv/\"")
-            buildConfigField("String", "CLIENT_ID", "\"f60163d7fb20530ffd2b98a8c37ca9a882bcfae897be992f408a5bf0073e5f8b\"")
-            buildConfigField("String", "CLIENT_SECRET", "\"60cf187b6332ad18cdb9ee209464f0d1185d9cbcab3a66f96942e21f39447aeb\"")
-            buildConfigField("String", "REDIRECT_URL", "\"movieshosein://zapp.com/code\"")
+            buildConfigField("String", "BASE_URL_TMDB", project.property("BASE_URL_TMDB") as String)
+            buildConfigField("String", "BASE_URL_Trakt", project.property("BASE_URL_TRAKT") as String)
 
         }
     }

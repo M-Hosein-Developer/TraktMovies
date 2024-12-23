@@ -6,16 +6,16 @@ import ir.androidcoder.domain.repository.MoviesRepository
 
 class MoviesUsecase(private val repository: MoviesRepository) {
 
-    fun allNowPlaying(auth : String) : Pager<Int, MoviesEntity> = repository.allNowPlaying(auth)
+    fun allNowPlaying() : Pager<Int, MoviesEntity> = repository.allNowPlaying()
 
-    fun allPopular(auth: String) : Pager<Int , MoviesEntity> = repository.allPopular(auth)
+    fun allPopular() : Pager<Int , MoviesEntity> = repository.allPopular()
 
-    fun allTopRate(auth: String): Pager<Int, MoviesEntity> = repository.topRate(auth)
+    fun allTopRate(): Pager<Int, MoviesEntity> = repository.topRate()
 
-    fun allUpcoming(auth: String): Pager<Int, MoviesEntity> = repository.upcoming(auth)
+    fun allUpcoming(): Pager<Int, MoviesEntity> = repository.upcoming()
 
-    suspend fun getMovieDetail(id : Int , auth: String) = repository.movieDetail(id , auth)
+    suspend fun getMovieDetail(id : Int) = repository.movieDetail(id)
 
-    suspend fun getYoutubeVideo(id: Int , auth: String) = repository.getYoutubeVideo(id , auth)
+    suspend fun getYoutubeVideo(id: Int) = repository.getYoutubeVideo(id)
 
 }

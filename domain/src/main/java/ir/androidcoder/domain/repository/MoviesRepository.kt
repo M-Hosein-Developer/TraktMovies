@@ -7,15 +7,15 @@ import ir.androidcoder.domain.entities.YoutubeEntity
 
 interface MoviesRepository {
 
-    fun allNowPlaying(auth : String) : Pager<Int, MoviesEntity>
+    fun allNowPlaying() : Pager<Int, MoviesEntity>
 
-    fun allPopular(auth : String) : Pager<Int, MoviesEntity>
+    fun allPopular() : Pager<Int, MoviesEntity>
 
-    fun topRate(auth : String) : Pager<Int, MoviesEntity>
+    fun topRate() : Pager<Int, MoviesEntity>
 
-    fun upcoming(auth : String) : Pager<Int, MoviesEntity>
+    fun upcoming() : Pager<Int, MoviesEntity>
 
-    suspend fun movieDetail(id : Int , auth : String) : MovieDetailEntity?
+    suspend fun movieDetail(id : Int) : MovieDetailEntity?
 
-    suspend fun getYoutubeVideo(id: Int, auth: String) : List<YoutubeEntity>?
+    suspend fun getYoutubeVideo(id: Int) : List<YoutubeEntity>?
 }

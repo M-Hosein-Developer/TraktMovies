@@ -5,6 +5,6 @@ import ir.androidcoder.domain.entities.SearchEntity
 
 interface SearchRepository {
 
-    fun searchMovies(auth : String , query: String) : Pager<Int, SearchEntity.Result>
+    fun searchMovies(query: String) : Pager<Int, SearchEntity.Result>
 
 }

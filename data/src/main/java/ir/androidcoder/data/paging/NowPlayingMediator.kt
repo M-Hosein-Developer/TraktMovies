@@ -5,6 +5,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import ir.androidcoder.data.BuildConfig
 import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
@@ -13,7 +14,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
-class NowPlayingMediator(private val api: TMDBApiService, private val dao: MoviesDao , private val auth : String) : RemoteMediator<Int , MoviesEntity>(){
+class NowPlayingMediator(private val api: TMDBApiService, private val dao: MoviesDao) : RemoteMediator<Int , MoviesEntity>(){
     override suspend fun load(
         loadType: LoadType,
         state: PagingState<Int, MoviesEntity>
@@ -30,7 +31,7 @@ class NowPlayingMediator(private val api: TMDBApiService, private val dao: Movie
         }
 
         return try {
-            val response = api.getNowPlayingMovies(page = page , authorization = auth)
+            val response = api.getNowPlayingMovies(page = page , authorization = BuildConfig.AUTHORIZATION_TMDB)
             Log.v("testDataNow" , response.body()?.results.toString())
             if (response.isSuccessful){
                 response.body()?.results.let { data ->

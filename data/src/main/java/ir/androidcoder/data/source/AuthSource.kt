@@ -1,6 +1,7 @@
 package ir.androidcoder.data.source
 
 import android.content.Context
+import ir.androidcoder.data.BuildConfig
 import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.remote.interceptor.RefreshToken
 import ir.androidcoder.data.util.TokenManager
@@ -10,11 +11,15 @@ import javax.inject.Inject
 
 class AuthSource @Inject constructor(private val api: TraktApiService) {
 
+    //authorization
+
+    fun authorization() : String = "https://api.trakt.tv/oauth/authorize?response_type=code&client_id=${BuildConfig.CLIENT_ID}&redirect_uri=${BuildConfig.REDIRECT_URL}"
+
     //get and save token
-    suspend fun getAccessToken(context: Context, code: String, clientId: String, clientSecret: String) : Flow<Boolean>{
+    suspend fun getAccessToken(context: Context, code: String) : Flow<Boolean>{
 
         return if (TokenManager(context).getAccessToken().isNullOrEmpty()) {
-            val response = api.getAccessToken(clientId, clientSecret, code).body()
+            val response = api.getAccessToken(BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET, code).body()
             if (response != null && response.access_token != "" || response?.access_token != null) {
                 response.access_token.let { TokenManager(context).saveAccessToken(it) }
                 response.refresh_token.let { TokenManager(context).saveRefreshToken(it) }
@@ -23,7 +28,7 @@ class AuthSource @Inject constructor(private val api: TraktApiService) {
                 emit(false)
             }
         }else {
-            refreshToken(context, clientId, clientSecret)
+            refreshToken(context, BuildConfig.CLIENT_ID, BuildConfig.CLIENT_SECRET)
             flow {
                 emit(true)
             }

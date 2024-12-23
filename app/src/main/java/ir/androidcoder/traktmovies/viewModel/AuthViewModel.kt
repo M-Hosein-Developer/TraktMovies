@@ -15,9 +15,11 @@ class AuthViewModel @Inject constructor(private val usecase: AuthUsecase) : View
     private val _isAuth = MutableStateFlow<Boolean>(false)
     val isAuth : StateFlow<Boolean> get() = _isAuth
 
-    fun getAccessToken(code: String, clientId: String, clientSecret: String){
+    fun authorization() = usecase.authorization()
+
+    fun getAccessToken(code: String){
         viewModelScope.launch {
-            usecase.getAccessToken(code , clientId , clientSecret).collect { status ->
+            usecase.getAccessToken(code).collect { status ->
                 _isAuth.value = status
             }
         }

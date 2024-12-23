@@ -9,10 +9,10 @@ import javax.inject.Inject
 
 class AuthRepositoryImpl @Inject constructor(private val source : AuthSource , @ApplicationContext private val context: Context) : AuthRepository {
 
-    override suspend fun getAccessToken(code: String, clientId: String, clientSecret: String) : Flow<Boolean> =
-        source.getAccessToken(context , code , clientId , clientSecret)
+    override fun authorization(): String = source.authorization()
 
-
+    override suspend fun getAccessToken(code: String) : Flow<Boolean> =
+        source.getAccessToken(context , code)
 
     override suspend fun logout(clientId: String , clientSecret: String) {
         source.logout(context , clientId , clientSecret)

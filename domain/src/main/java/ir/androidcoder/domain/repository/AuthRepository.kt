@@ -4,8 +4,9 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthRepository {
 
-    suspend fun getAccessToken(code: String, clientId: String, clientSecret: String) : Flow<Boolean>
+    fun authorization() : String
 
+    suspend fun getAccessToken(code: String) : Flow<Boolean>
 
     suspend fun logout(clientId: String , clientSecret: String)
 

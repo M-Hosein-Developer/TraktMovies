@@ -9,9 +9,9 @@ import javax.inject.Inject
 
 class SearchSource @Inject constructor(private val api: TMDBApiService) {
 
-    fun searchMovies(auth : String , query: String) : Pager<Int , SearchEntity.Result> = Pager(
+    fun searchMovies(query: String) : Pager<Int , SearchEntity.Result> = Pager(
         config = PagingConfig(pageSize = 20 , enablePlaceholders = false),
-        pagingSourceFactory = { SearchPagingSource(api , auth , query) }
+        pagingSourceFactory = { SearchPagingSource(api , query) }
     )
 
 }

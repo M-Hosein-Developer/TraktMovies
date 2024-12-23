@@ -5,9 +5,9 @@ import kotlinx.coroutines.flow.Flow
 
 class AuthUsecase(private val repository: AuthRepository) {
 
-    suspend fun getAccessToken(code: String, clientId: String, clientSecret: String) : Flow<Boolean> =
-        repository.getAccessToken(code , clientId , clientSecret)
+    fun authorization() = repository.authorization()
 
+    suspend fun getAccessToken(code: String) : Flow<Boolean> = repository.getAccessToken(code)
 
     suspend fun logout(clientId: String , clientSecret: String){
         repository.logout(clientId , clientSecret)

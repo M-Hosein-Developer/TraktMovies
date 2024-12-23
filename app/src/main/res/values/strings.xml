@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">TraktMovies</string>
+    <string name="success_message">ثبت نام با موفقیت انجام شد</string>
 </resources>

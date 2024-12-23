@@ -3,6 +3,7 @@ package ir.androidcoder.data.source
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
+import ir.androidcoder.data.BuildConfig
 import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDomain
 import ir.androidcoder.data.paging.NowPlayingMediator
@@ -22,32 +23,32 @@ import javax.inject.Inject
 @OptIn(ExperimentalPagingApi::class)
 class MoviesSource @Inject constructor(private val apiService: TMDBApiService , private val dao: MoviesDao) {
 
-    fun allNowPlaying(auth : String) : Pager<Int , MoviesEntity> = Pager(
+    fun allNowPlaying() : Pager<Int , MoviesEntity> = Pager(
         config = PagingConfig(6 , enablePlaceholders = false),
-        remoteMediator = NowPlayingMediator(apiService , dao , auth),
+        remoteMediator = NowPlayingMediator(apiService , dao),
         pagingSourceFactory = { NowPlayingPagerSource(dao.getAllNowPlaying()) }
     )
 
-    fun allPopular(auth: String) : Pager<Int , MoviesEntity> = Pager(
+    fun allPopular() : Pager<Int , MoviesEntity> = Pager(
         config = PagingConfig(6 , enablePlaceholders = false),
-        remoteMediator = PopularMediator(apiService , dao , auth),
+        remoteMediator = PopularMediator(apiService , dao),
         pagingSourceFactory = { PopularPagerSource(dao.getAllPopular()) }
     )
 
-    fun allTopRate(auth: String) : Pager<Int , MoviesEntity> = Pager(
+    fun allTopRate() : Pager<Int , MoviesEntity> = Pager(
         config = PagingConfig(6 , enablePlaceholders = false),
-        remoteMediator = TopRateMediator(apiService , dao , auth),
+        remoteMediator = TopRateMediator(apiService , dao),
         pagingSourceFactory = { TopRatePagerSource(dao.getAllTopRate()) }
     )
 
-    fun allUpcoming(auth: String) : Pager<Int , MoviesEntity> = Pager(
+    fun allUpcoming() : Pager<Int , MoviesEntity> = Pager(
         config = PagingConfig(6 , enablePlaceholders = false),
-        remoteMediator = UpcomingMediator(apiService , dao , auth),
+        remoteMediator = UpcomingMediator(apiService , dao),
         pagingSourceFactory = { UpcomingPagerSource(dao.getAllUpcoming()) }
     )
 
-    suspend fun getMovieDetail(id : Int , auth: String) : MovieDetailEntity? = apiService.getMoviesDetail(id , auth).body()?.toDomain()
+    suspend fun getMovieDetail(id : Int) : MovieDetailEntity? = apiService.getMoviesDetail(id , BuildConfig.AUTHORIZATION_TMDB).body()?.toDomain()
 
-    suspend fun getYoutubeVideo(id: Int , auth: String) : List<YoutubeEntity>? = apiService.getYoutubeVideo(id , auth).body()?.results?.map { it.toDomain() }
+    suspend fun getYoutubeVideo(id: Int) : List<YoutubeEntity>? = apiService.getYoutubeVideo(id , BuildConfig.AUTHORIZATION_TMDB).body()?.results?.map { it.toDomain() }
 
 }

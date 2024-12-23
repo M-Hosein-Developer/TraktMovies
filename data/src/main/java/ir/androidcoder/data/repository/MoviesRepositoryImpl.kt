@@ -10,16 +10,16 @@ import javax.inject.Inject
 
 class MoviesRepositoryImpl @Inject constructor(private val source: MoviesSource) : MoviesRepository{
 
-    override fun allNowPlaying(auth: String): Pager<Int, MoviesEntity> = source.allNowPlaying(auth)
+    override fun allNowPlaying(): Pager<Int, MoviesEntity> = source.allNowPlaying()
 
-    override fun allPopular(auth: String): Pager<Int, MoviesEntity> = source.allPopular(auth)
+    override fun allPopular(): Pager<Int, MoviesEntity> = source.allPopular()
 
-    override fun topRate(auth: String): Pager<Int, MoviesEntity> = source.allTopRate(auth)
+    override fun topRate(): Pager<Int, MoviesEntity> = source.allTopRate()
 
-    override fun upcoming(auth: String): Pager<Int, MoviesEntity> = source.allUpcoming(auth)
+    override fun upcoming(): Pager<Int, MoviesEntity> = source.allUpcoming()
 
-    override suspend fun movieDetail(id: Int, auth: String): MovieDetailEntity? = source.getMovieDetail(id , auth)
+    override suspend fun movieDetail(id: Int): MovieDetailEntity? = source.getMovieDetail(id)
 
-    override suspend fun getYoutubeVideo(id: Int, auth: String): List<YoutubeEntity>? = source.getYoutubeVideo(id , auth)
+    override suspend fun getYoutubeVideo(id: Int): List<YoutubeEntity>? = source.getYoutubeVideo(id)
 
 }

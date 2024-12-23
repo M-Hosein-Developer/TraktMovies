@@ -7,7 +7,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import ir.androidcoder.domain.entities.MovieDetailEntity
 import ir.androidcoder.domain.entities.YoutubeEntity
 import ir.androidcoder.domain.usecase.MoviesUsecase
-import ir.androidcoder.traktmovies.BuildConfig
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -24,18 +23,18 @@ class MoviesViewModel @Inject constructor(private val usecase: MoviesUsecase) : 
     val youtubeUrl : StateFlow<List<YoutubeEntity>?> get() = _youtubeUrl
 
 
-    val mowPlaying = usecase.allNowPlaying(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+    val mowPlaying = usecase.allNowPlaying().flow.cachedIn(viewModelScope)
 
-    val popular = usecase.allPopular(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+    val popular = usecase.allPopular().flow.cachedIn(viewModelScope)
 
-    val topRate = usecase.allTopRate(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+    val topRate = usecase.allTopRate().flow.cachedIn(viewModelScope)
 
-    val upcoming = usecase.allUpcoming(BuildConfig.AUTHORIZATION_TMDB).flow.cachedIn(viewModelScope)
+    val upcoming = usecase.allUpcoming().flow.cachedIn(viewModelScope)
 
 
     fun getMovieDetail(id : Int) = viewModelScope.launch {
-        _movieDetail.value = usecase.getMovieDetail(id , BuildConfig.AUTHORIZATION_TMDB)
-        _youtubeUrl.value = usecase.getYoutubeVideo(id , BuildConfig.AUTHORIZATION_TMDB)
+        _movieDetail.value = usecase.getMovieDetail(id)
+        _youtubeUrl.value = usecase.getYoutubeVideo(id)
     }
 
 }

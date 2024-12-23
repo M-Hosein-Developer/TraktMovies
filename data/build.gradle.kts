@@ -15,6 +15,10 @@ android {
         consumerProguardFiles("consumer-rules.pro")
     }
 
+    buildFeatures {
+        buildConfig = true
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -22,6 +26,20 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+
+            buildConfigField("String", "AUTHORIZATION_TMDB", project.property("AUTHORIZATION_TMDB") as String)
+            buildConfigField("String", "CLIENT_ID", project.property("CLIENT_ID") as String)
+            buildConfigField("String", "CLIENT_SECRET", project.property("CLIENT_SECRET") as String)
+            buildConfigField("String", "REDIRECT_URL", project.property("REDIRECT_URL") as String)
+        }
+
+        debug {
+
+            buildConfigField("String", "AUTHORIZATION_TMDB", project.property("AUTHORIZATION_TMDB") as String)
+            buildConfigField("String", "CLIENT_ID", project.property("CLIENT_ID") as String)
+            buildConfigField("String", "CLIENT_SECRET", project.property("CLIENT_SECRET") as String)
+            buildConfigField("String", "REDIRECT_URL", project.property("REDIRECT_URL") as String)
+
         }
     }
     compileOptions {

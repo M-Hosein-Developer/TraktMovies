@@ -12,7 +12,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val usecase: SearchUsecase) : ViewModel() {
 
 
-    fun searchMovies(query: String) = usecase.searchMovies(BuildConfig.AUTHORIZATION_TMDB , query).flow.cachedIn(viewModelScope)
+    fun searchMovies(query: String) = usecase.searchMovies(query).flow.cachedIn(viewModelScope)
 
 
 }
