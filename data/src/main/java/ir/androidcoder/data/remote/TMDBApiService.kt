@@ -3,6 +3,7 @@ package ir.androidcoder.data.remote
 import ir.androidcoder.data.model.MovieDetailResponse
 import ir.androidcoder.data.model.NowPlayingResponse
 import ir.androidcoder.data.model.PopularResponse
+import ir.androidcoder.data.model.SearchResponse
 import ir.androidcoder.data.model.TopRatedResponse
 import ir.androidcoder.data.model.UpcomingResponse
 import ir.androidcoder.data.model.YoutubeResponse
@@ -15,7 +16,7 @@ import retrofit2.http.Query
 
 interface TMDBApiService {
 
-    @GET("now_playing")
+    @GET("movie/now_playing")
     @Headers("accept: application/json")
     suspend fun getNowPlayingMovies(
         @Query("language") language: String = "en-US",
@@ -24,7 +25,7 @@ interface TMDBApiService {
     ): Response<NowPlayingResponse>
 
 
-    @GET("popular")
+    @GET("movie/popular")
     @Headers("accept: application/json")
     suspend fun getPopularMovies(
         @Query("language") language: String = "en-US",
@@ -33,7 +34,7 @@ interface TMDBApiService {
     ): Response<PopularResponse>
 
 
-    @GET("top_rated")
+    @GET("movie/top_rated")
     @Headers("accept: application/json")
     suspend fun getTopRatedMovies(
         @Query("language") language: String = "en-US",
@@ -43,7 +44,7 @@ interface TMDBApiService {
     ): Response<TopRatedResponse>
 
 
-    @GET("upcoming")
+    @GET("movie/upcoming")
     @Headers("accept: application/json")
     suspend fun getUpcomingMovies(
         @Query("language") language: String = "en-US",
@@ -51,18 +52,28 @@ interface TMDBApiService {
         @Header("Authorization") authorization: String
     ): Response<UpcomingResponse>
 
-    @GET("{movie_id}?language=en-US")
+    @GET("movie/{movie_id}?language=en-US")
     @Headers("accept: application/json")
     suspend fun getMoviesDetail(
         @Path("movie_id") movieId: Int,
         @Header("Authorization") authorization: String
     ) : Response<MovieDetailResponse>
 
-    @GET("{movie_id}/videos?language=en-US")
+    @GET("movie/{movie_id}/videos?language=en-US")
     @Headers("accept: application/json")
     suspend fun getYoutubeVideo(
         @Path("movie_id") movieId: Int,
         @Header("Authorization") authorization: String
     ) : Response<YoutubeResponse>
+
+    @GET("search/collection")
+    @Headers("accept: application/json")
+    fun searchCollection(
+        @Header("Authorization") authorization: String,
+        @Query("query") query: String,
+        @Query("include_adult") includeAdult: Boolean = false,
+        @Query("language") language: String = "en-US",
+        @Query("page") page: Int = 1
+    ): Response<SearchResponse>
 
 }

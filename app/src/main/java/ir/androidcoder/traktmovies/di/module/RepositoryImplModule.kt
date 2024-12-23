@@ -7,8 +7,10 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ir.androidcoder.data.repository.AuthRepositoryImpl
 import ir.androidcoder.data.repository.MoviesRepositoryImpl
+import ir.androidcoder.data.repository.SearchRepositoryImpl
 import ir.androidcoder.data.source.AuthSource
 import ir.androidcoder.data.source.MoviesSource
+import ir.androidcoder.data.source.SearchSource
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,5 +21,8 @@ class RepositoryImplModule {
 
     @Provides
     fun provideMoviesImpl(moviesSource: MoviesSource) : MoviesRepositoryImpl = MoviesRepositoryImpl(moviesSource)
+
+    @Provides
+    fun provideSearchImpl(searchSource: SearchSource) : SearchRepositoryImpl = SearchRepositoryImpl(searchSource)
 
 }
