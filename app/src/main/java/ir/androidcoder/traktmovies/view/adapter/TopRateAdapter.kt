@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ir.androidcoder.domain.entities.TopRateDEntity
+import ir.androidcoder.domain.entities.MoviesEntity
 import ir.androidcoder.traktmovies.databinding.NowPlayingItemBinding
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BaseDiffCallback
 import ir.androidcoder.traktmovies.view.adapter.basaAdapter.BasePagingAdapter
 
-class TopRateAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<TopRateDEntity, TopRateAdapter.TopRateViewHolder>(
+class TopRateAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<MoviesEntity, TopRateAdapter.TopRateViewHolder>(
     BaseDiffCallback(
         {oldItem, newItem -> oldItem.id == newItem.id},
         {oldItem, newItem -> oldItem == newItem}
@@ -18,16 +18,16 @@ class TopRateAdapter (val onClick :(Int) -> Unit) : BasePagingAdapter<TopRateDEn
 ) {
 
     inner class TopRateViewHolder(private val binding: NowPlayingItemBinding) : RecyclerView.ViewHolder(binding.root){
-        fun bind(data: TopRateDEntity) {
+        fun bind(data: MoviesEntity) {
             binding.apply {
                 Log.v("testData12" , data.title)
 
                 Glide.with(imgFilmCover.context)
-                    .load("https://image.tmdb.org/t/p/w500" + data.poster_path)
+                    .load("https://image.tmdb.org/t/p/w500" + data.posterPath)
                     .into(imgFilmCover)
 
                 txtTitle.text = data.title
-                txtDate.text = data.release_date
+                txtDate.text = data.releaseDate
 
                 itemView.setOnClickListener {
                     onClick(data.id)

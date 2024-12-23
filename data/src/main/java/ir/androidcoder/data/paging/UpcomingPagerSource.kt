@@ -4,17 +4,17 @@ import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import ir.androidcoder.data.local.entity.UpcomingEntity
 import ir.androidcoder.data.mapper.toDomain
-import ir.androidcoder.domain.entities.UpcomingDEntity
+import ir.androidcoder.domain.entities.MoviesEntity
 
-class UpcomingPagerSource(private val source: PagingSource<Int, UpcomingEntity>) : PagingSource<Int, UpcomingDEntity>() {
+class UpcomingPagerSource(private val source: PagingSource<Int, UpcomingEntity>) : PagingSource<Int, MoviesEntity>() {
 
-    override fun getRefreshKey(state: PagingState<Int, UpcomingDEntity>): Int? {
+    override fun getRefreshKey(state: PagingState<Int, MoviesEntity>): Int? {
         val anchorPosition = state.anchorPosition ?: return null
         val closestPage = state.closestPageToPosition(anchorPosition) ?: return null
         return closestPage.prevKey?.plus(1) ?: closestPage.nextKey?.minus(1)
     }
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, UpcomingDEntity> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MoviesEntity> {
         return when (val result = source.load(params)) {
             is LoadResult.Page -> LoadResult.Page(
                 data = result.data.map { it.toDomain() },

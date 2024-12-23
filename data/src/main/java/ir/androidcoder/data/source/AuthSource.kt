@@ -1,7 +1,6 @@
 package ir.androidcoder.data.source
 
 import android.content.Context
-import android.widget.Toast
 import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.remote.interceptor.RefreshToken
 import ir.androidcoder.data.util.TokenManager
@@ -16,9 +15,9 @@ class AuthSource @Inject constructor(private val api: TraktApiService) {
 
         return if (TokenManager(context).getAccessToken().isNullOrEmpty()) {
             val response = api.getAccessToken(clientId, clientSecret, code).body()
-            if (response != null) {
-                TokenManager(context).saveAccessToken(response.access_token)
-                TokenManager(context).saveRefreshToken(response.refresh_token)
+            if (response != null && response.access_token != "" || response?.access_token != null) {
+                response.access_token.let { TokenManager(context).saveAccessToken(it) }
+                response.refresh_token.let { TokenManager(context).saveRefreshToken(it) }
             }
             flow {
                 emit(false)

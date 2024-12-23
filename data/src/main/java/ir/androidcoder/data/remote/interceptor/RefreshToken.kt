@@ -3,7 +3,6 @@ package ir.androidcoder.data.remote.interceptor
 import android.content.Context
 import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.util.TokenManager
-import javax.inject.Inject
 
 class RefreshToken (private val context: Context , private val api : TraktApiService , private val tokenManager: TokenManager) {
 

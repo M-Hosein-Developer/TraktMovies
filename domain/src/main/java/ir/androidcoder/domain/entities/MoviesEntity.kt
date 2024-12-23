@@ -1,14 +1,9 @@
-package ir.androidcoder.data.local.entity
+package ir.androidcoder.domain.entities
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity
-data class PopularEntity(
+data class MoviesEntity(
+    val id: Int,
     val adult: Boolean,
     val backdropPath: String,
-    @PrimaryKey(autoGenerate = false)
-    val id: Int,
     val originalLanguage: String,
     val originalTitle: String,
     val overview: String,

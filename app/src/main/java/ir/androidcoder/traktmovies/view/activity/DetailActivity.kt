@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.webkit.WebSettings
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
@@ -43,11 +44,6 @@ class DetailActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-//            insets
-//        }
 
         handleIntent()
         initView()
@@ -74,14 +70,16 @@ class DetailActivity : AppCompatActivity() {
 
                         txtDetailTitle.text = data.title
 
+                        Log.v("testPoster" , data.backdropPath ?: "ih")
+
                         Glide.with(this@DetailActivity)
-                            .load("https://image.tmdb.org/t/p/w500" + data.backdrop_path)
+                            .load("https://image.tmdb.org/t/p/w500" + data.backdropPath)
                             .transform(BlurTransformation(this@DetailActivity, 15))
                             .centerCrop()
                             .into(imgDetailBackground)
 
                         Glide.with(this@DetailActivity)
-                            .load("https://image.tmdb.org/t/p/w500" + data.backdrop_path)
+                            .load("https://image.tmdb.org/t/p/w500" + data.backdropPath)
                             .apply(RequestOptions.bitmapTransform(transformation))
                             .into(imgDetailCover)
 
@@ -89,13 +87,13 @@ class DetailActivity : AppCompatActivity() {
                             txtGenre.append(genre.name + "  -  ")
                         }
 
-                        txtDetailDate.text = data.release_date
+                        txtDetailDate.text = data.releaseDate
                         txtDetailHourse.text = data.runtime.toString() + " min"
 
                         txtDetailOverview.text = data.overview
 
-                        txtRatting.text = data.vote_average.toString()
-                        txtMyRatting.text = data.vote_count.toString()
+                        txtRatting.text = data.voteAverage.toString()
+                        txtMyRatting.text = data.voteCount.toString()
 
 
                     }

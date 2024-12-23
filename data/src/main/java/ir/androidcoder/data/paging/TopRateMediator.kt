@@ -7,15 +7,15 @@ import androidx.paging.RemoteMediator
 import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
-import ir.androidcoder.domain.entities.TopRateDEntity
+import ir.androidcoder.domain.entities.MoviesEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 @OptIn(ExperimentalPagingApi::class)
-class TopRateMediator(private val api: TMDBApiService, private val dao: MoviesDao, private val auth : String) : RemoteMediator<Int , TopRateDEntity>(){
+class TopRateMediator(private val api: TMDBApiService, private val dao: MoviesDao, private val auth : String) : RemoteMediator<Int , MoviesEntity>(){
     override suspend fun load(
         loadType: LoadType,
-        state: PagingState<Int, TopRateDEntity>
+        state: PagingState<Int, MoviesEntity>
     ): MediatorResult {
 
         val page = when(loadType){

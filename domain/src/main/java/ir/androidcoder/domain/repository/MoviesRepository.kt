@@ -2,21 +2,18 @@ package ir.androidcoder.domain.repository
 
 import androidx.paging.Pager
 import ir.androidcoder.domain.entities.MovieDetailEntity
-import ir.androidcoder.domain.entities.NowPlayingDEntity
-import ir.androidcoder.domain.entities.PopularDEntity
-import ir.androidcoder.domain.entities.TopRateDEntity
-import ir.androidcoder.domain.entities.UpcomingDEntity
+import ir.androidcoder.domain.entities.MoviesEntity
 import ir.androidcoder.domain.entities.YoutubeEntity
 
 interface MoviesRepository {
 
-    fun allNowPlaying(auth : String) : Pager<Int, NowPlayingDEntity>
+    fun allNowPlaying(auth : String) : Pager<Int, MoviesEntity>
 
-    fun allPopular(auth : String) : Pager<Int, PopularDEntity>
+    fun allPopular(auth : String) : Pager<Int, MoviesEntity>
 
-    fun topRate(auth : String) : Pager<Int, TopRateDEntity>
+    fun topRate(auth : String) : Pager<Int, MoviesEntity>
 
-    fun upcoming(auth : String) : Pager<Int, UpcomingDEntity>
+    fun upcoming(auth : String) : Pager<Int, MoviesEntity>
 
     suspend fun movieDetail(id : Int , auth : String) : MovieDetailEntity?
 
