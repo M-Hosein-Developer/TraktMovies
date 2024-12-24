@@ -6,6 +6,6 @@ import ir.androidcoder.domain.repository.SearchRepository
 
 class SearchUsecase (private val repository: SearchRepository) {
 
-    fun searchMovies(query: String) : Pager<Int, SearchEntity.Result> = repository.searchMovies(query)
+    fun searchMovies(query: String) : Pager<Int, SearchEntity> = repository.searchMovies(query)
 
 }

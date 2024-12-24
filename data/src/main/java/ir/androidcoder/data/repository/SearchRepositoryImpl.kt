@@ -9,7 +9,7 @@ import javax.inject.Inject
 class SearchRepositoryImpl @Inject constructor(private val source: SearchSource) : SearchRepository {
 
 
-    override fun searchMovies(query: String): Pager<Int, SearchEntity.Result> = source.searchMovies(query)
+    override fun searchMovies(query: String): Pager<Int, SearchEntity> = source.searchMovies(query)
 
 
 }

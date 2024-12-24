@@ -67,7 +67,7 @@ class MainActivity : BaseActivity() {
 
             //setup adapter
             rvNowPlaying.adapter = NowPlayingAdapter(
-                onCover = { cover  , title->
+                onCover = { cover  , title ->
                     txtTitle.text = title
                     Glide.with(this@MainActivity)
                         .load(cover)

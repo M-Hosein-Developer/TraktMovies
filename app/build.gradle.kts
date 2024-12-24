@@ -104,4 +104,8 @@ dependencies {
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:core:12.1.1")
     implementation("com.pierfrancescosoffritti.androidyoutubeplayer:chromecast-sender:0.30")
 
+    //skeleton shimmer effect
+    implementation("com.ericktijerou.koleton:koleton:1.0.0-beta01")
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+
 }
