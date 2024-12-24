@@ -4,7 +4,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import ir.androidcoder.data.BuildConfig
 import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
@@ -30,7 +29,7 @@ class UpcomingMediator(private val api: TMDBApiService, private val dao: MoviesD
         }
 
         return try {
-            val response = api.getUpcomingMovies(page = page , authorization = BuildConfig.AUTHORIZATION_TMDB)
+            val response = api.getUpcomingMovies(page = page)
             if (response.isSuccessful){
                 response.body()?.results.let { data ->
                     withContext(Dispatchers.IO) {

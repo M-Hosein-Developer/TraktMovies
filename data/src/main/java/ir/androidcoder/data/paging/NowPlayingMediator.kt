@@ -5,7 +5,6 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import ir.androidcoder.data.BuildConfig
 import ir.androidcoder.data.local.MoviesDao
 import ir.androidcoder.data.mapper.toDB
 import ir.androidcoder.data.remote.TMDBApiService
@@ -31,7 +30,7 @@ class NowPlayingMediator(private val api: TMDBApiService, private val dao: Movie
         }
 
         return try {
-            val response = api.getNowPlayingMovies(page = page , authorization = BuildConfig.AUTHORIZATION_TMDB)
+            val response = api.getNowPlayingMovies(page = page)
             Log.v("testDataNow" , response.body()?.results.toString())
             if (response.isSuccessful){
                 response.body()?.results.let { data ->
