@@ -23,6 +23,9 @@ import ir.androidcoder.traktmovies.view.adapter.PopularAdapter
 import ir.androidcoder.traktmovies.view.adapter.TopRateAdapter
 import ir.androidcoder.traktmovies.view.adapter.UpcomingAdapter
 import ir.androidcoder.traktmovies.viewModel.MoviesViewModel
+import koleton.api.hideSkeleton
+import koleton.api.loadSkeleton
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -45,8 +48,19 @@ class MainActivity : BaseActivity() {
 
         initData(binding)
         observeData(binding)
+        skeleton(binding)
 
 
+    }
+
+    private fun skeleton(binding: ActivityMainBinding) {
+        lifecycleScope.launch {
+            binding.main.loadSkeleton()
+            binding.imgBackground.loadSkeleton()
+            delay(7000)
+            binding.main.hideSkeleton()
+            binding.imgBackground.hideSkeleton()
+        }
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_base
