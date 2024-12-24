@@ -57,9 +57,11 @@ class MainActivity : BaseActivity() {
         lifecycleScope.launch {
             binding.main.loadSkeleton()
             binding.imgBackground.loadSkeleton()
+            binding.imgMainCover.loadSkeleton()
             delay(7000)
             binding.main.hideSkeleton()
             binding.imgBackground.hideSkeleton()
+            binding.imgMainCover.hideSkeleton()
         }
     }
 
