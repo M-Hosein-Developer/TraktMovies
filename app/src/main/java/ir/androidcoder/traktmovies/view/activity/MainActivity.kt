@@ -53,10 +53,6 @@ class MainActivity : BaseActivity() {
 
     }
 
-    private fun showSkeleton(binding: ActivityMainBinding) {
-        binding.rvNowPlaying.loadSkeleton(R.layout.now_playing_item)
-    }
-
     override fun getLayoutResourceId(): Int = R.layout.activity_base
 
     private fun initData(binding: ActivityMainBinding) {
@@ -113,10 +109,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        Log.v("testAdapter", "2")
-                        rvNowPlaying.loadSkeleton(R.layout.now_playing_item)
-                        imgMainCover.loadSkeleton()
-                        imgBackground.loadSkeleton()
+                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -146,8 +139,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        Log.v("testAdapter", "2")
-                        rvPopular.loadSkeleton(R.layout.now_playing_item)
+                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -175,8 +167,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        Log.v("testAdapter", "2")
-                        rvTopRate.loadSkeleton(R.layout.now_playing_item)
+                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -204,8 +195,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        Log.v("testAdapter", "2")
-                        rvUpcoming.loadSkeleton(R.layout.now_playing_item)
+                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {

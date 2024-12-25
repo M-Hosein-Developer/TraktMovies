@@ -108,4 +108,7 @@ dependencies {
     implementation("com.ericktijerou.koleton:koleton:1.0.0-beta01")
     implementation("com.facebook.shimmer:shimmer:0.5.0")
 
+    //lottie
+    implementation("com.airbnb.android:lottie:6.6.2")
+
 }
