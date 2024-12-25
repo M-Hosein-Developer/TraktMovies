@@ -9,6 +9,7 @@ import ir.androidcoder.data.local.entity.NowPlayingEntity
 import ir.androidcoder.data.local.entity.PopularEntity
 import ir.androidcoder.data.local.entity.TopRateEntity
 import ir.androidcoder.data.local.entity.UpcomingEntity
+import ir.androidcoder.data.local.entity.WatchListEntity
 
 @Dao
 interface MoviesDao {
@@ -36,4 +37,14 @@ interface MoviesDao {
 
     @Query("SELECT * FROM UpcomingEntity")
     fun getAllUpcoming() : PagingSource<Int , UpcomingEntity>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertWatchList(data :WatchListEntity)
+
+    @Query("SELECT * FROM WatchListEntity")
+    suspend fun getAllWatchList() : PagingSource<Int , WatchListEntity>
+
+    @Query("SELECT * FROM WatchListEntity WHERE title LIKE '%' || :title || '%' COLLATE NOCASE")
+    suspend fun getWatchListByTitle(title : String)
+
 }
