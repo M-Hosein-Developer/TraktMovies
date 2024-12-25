@@ -10,6 +10,7 @@ import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.source.AuthSource
 import ir.androidcoder.data.source.MoviesSource
 import ir.androidcoder.data.source.SearchSource
+import ir.androidcoder.data.source.WatchListSource
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,4 +24,7 @@ class SourceModule {
 
     @Provides
     fun provideSearchSource(apiService: TMDBApiService) : SearchSource = SearchSource(apiService)
+
+    @Provides
+    fun provideWatchListSource(dao: MoviesDao) : WatchListSource = WatchListSource(dao)
 }

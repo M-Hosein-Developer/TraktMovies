@@ -7,9 +7,11 @@ import dagger.hilt.components.SingletonComponent
 import ir.androidcoder.data.repository.AuthRepositoryImpl
 import ir.androidcoder.data.repository.MoviesRepositoryImpl
 import ir.androidcoder.data.repository.SearchRepositoryImpl
+import ir.androidcoder.data.repository.WatchListRepositoryImpl
 import ir.androidcoder.domain.repository.AuthRepository
 import ir.androidcoder.domain.repository.MoviesRepository
 import ir.androidcoder.domain.repository.SearchRepository
+import ir.androidcoder.domain.repository.WatchListRepository
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,5 +25,8 @@ abstract class IRepositoryModule {
 
     @Binds
     abstract fun provideSearchRepository(repo : SearchRepositoryImpl) : SearchRepository
+
+    @Binds
+    abstract fun provideWatchListRepository(repo : WatchListRepositoryImpl) : WatchListRepository
 
 }
