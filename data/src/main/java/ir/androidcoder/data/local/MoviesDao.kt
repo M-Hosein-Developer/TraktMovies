@@ -42,9 +42,9 @@ interface MoviesDao {
     suspend fun insertWatchList(data :WatchListEntity)
 
     @Query("SELECT * FROM WatchListEntity")
-    suspend fun getAllWatchList() : PagingSource<Int , WatchListEntity>
+    fun getAllWatchList() : PagingSource<Int , WatchListEntity>
 
     @Query("SELECT * FROM WatchListEntity WHERE title LIKE '%' || :title || '%' COLLATE NOCASE")
-    suspend fun getWatchListByTitle(title : String)
+    suspend fun getWatchListByTitle(title : String) : List<WatchListEntity>
 
 }
