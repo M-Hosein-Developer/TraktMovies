@@ -8,6 +8,6 @@ interface AuthRepository {
 
     suspend fun getAccessToken(code: String) : Flow<Boolean>
 
-    suspend fun logout(clientId: String , clientSecret: String)
+    suspend fun logout()
 
 }

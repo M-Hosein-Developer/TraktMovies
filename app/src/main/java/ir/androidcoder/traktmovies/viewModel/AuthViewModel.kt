@@ -25,4 +25,10 @@ class AuthViewModel @Inject constructor(private val usecase: AuthUsecase) : View
         }
     }
 
+    fun logout(){
+        viewModelScope.launch {
+            usecase.logout()
+        }
+    }
+
 }

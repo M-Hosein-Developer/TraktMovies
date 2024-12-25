@@ -9,8 +9,8 @@ class AuthUsecase(private val repository: AuthRepository) {
 
     suspend fun getAccessToken(code: String) : Flow<Boolean> = repository.getAccessToken(code)
 
-    suspend fun logout(clientId: String , clientSecret: String){
-        repository.logout(clientId , clientSecret)
+    suspend fun logout(){
+        repository.logout()
     }
 
 }

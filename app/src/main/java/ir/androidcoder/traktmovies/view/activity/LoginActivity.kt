@@ -1,5 +1,6 @@
 package ir.androidcoder.traktmovies.view.activity
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -23,6 +24,13 @@ class LoginActivity : AppCompatActivity() {
     private val viewModel : AuthViewModel by viewModels()
     private lateinit var binding: ActivityLoginBinding
 
+    companion object{
+        fun showLogin(context: Context){
+            context.let {
+                context.startActivity(Intent(context , LoginActivity::class.java))
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

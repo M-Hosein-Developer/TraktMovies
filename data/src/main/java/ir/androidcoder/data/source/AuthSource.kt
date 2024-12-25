@@ -39,12 +39,12 @@ class AuthSource @Inject constructor(private val api: TraktApiService) {
         RefreshToken(context , api , TokenManager(context)).refreshToken(clientId , clientSecret)
     }
 
-    suspend fun logout(context: Context , clientId: String , clientSecret: String){
+    suspend fun logout(context: Context){
         if (TokenManager(context).getAccessToken() != null) {
             api.revokeToken(
                 TokenManager(context).getAccessToken()!!,
-                clientId,
-                clientSecret
+                BuildConfig.CLIENT_ID,
+                BuildConfig.CLIENT_SECRET
             )
             TokenManager(context).clearTokens()
         }

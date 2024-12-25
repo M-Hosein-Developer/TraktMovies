@@ -14,7 +14,7 @@ class AuthRepositoryImpl @Inject constructor(private val source : AuthSource , @
     override suspend fun getAccessToken(code: String) : Flow<Boolean> =
         source.getAccessToken(context , code)
 
-    override suspend fun logout(clientId: String , clientSecret: String) {
-        source.logout(context , clientId , clientSecret)
+    override suspend fun logout() {
+        source.logout(context)
     }
 }
