@@ -7,7 +7,7 @@ fun MovieDetailResponse.toDomain() : MovieDetailEntity = MovieDetailEntity(
 
     adult = adult,
     backdropPath = backdrop_path,
-    belongsToCollection = belongs_to_collection ,
+    belongsToCollection = belongs_to_collection ?: "",
     budget = budget,
     genres = genres.map { it.toDomain() },
     homepage = homepage ,
@@ -40,7 +40,7 @@ fun MovieDetailResponse.Genre.toDomain() : MovieDetailEntity.Genre = MovieDetail
 
 fun MovieDetailResponse.ProductionCompany.toDomain() : MovieDetailEntity.ProductionCompany = MovieDetailEntity.ProductionCompany(
     id = id ,
-    logoPath = logo_path ,
+    logoPath = logo_path ?: "" ,
     name = name,
     originCountry = origin_country
 )

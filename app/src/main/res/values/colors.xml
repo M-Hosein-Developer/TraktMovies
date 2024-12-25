@@ -9,4 +9,6 @@
     <color name="back_gray_blur">#91000000</color>
     <color name="blue">#1f5afe</color>
 
+    <color name="gray_light">#424242</color>
+
 </resources>

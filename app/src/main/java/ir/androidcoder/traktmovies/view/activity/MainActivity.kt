@@ -5,9 +5,11 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.paging.LoadState
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.MultiTransformation
@@ -25,7 +27,6 @@ import ir.androidcoder.traktmovies.view.adapter.UpcomingAdapter
 import ir.androidcoder.traktmovies.viewModel.MoviesViewModel
 import koleton.api.hideSkeleton
 import koleton.api.loadSkeleton
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -48,21 +49,12 @@ class MainActivity : BaseActivity() {
 
         initData(binding)
         observeData(binding)
-        skeleton(binding)
 
 
     }
 
-    private fun skeleton(binding: ActivityMainBinding) {
-        lifecycleScope.launch {
-            binding.main.loadSkeleton()
-            binding.imgBackground.loadSkeleton()
-            binding.imgMainCover.loadSkeleton()
-            delay(7000)
-            binding.main.hideSkeleton()
-            binding.imgBackground.hideSkeleton()
-            binding.imgMainCover.hideSkeleton()
-        }
+    private fun showSkeleton(binding: ActivityMainBinding) {
+        binding.rvNowPlaying.loadSkeleton(R.layout.now_playing_item)
     }
 
     override fun getLayoutResourceId(): Int = R.layout.activity_base
@@ -71,7 +63,6 @@ class MainActivity : BaseActivity() {
 
         binding.apply {
 
-            val transformation = MultiTransformation(CenterCrop(), RoundedCorners(55))
             val overlayDrawable = ColorDrawable(Color.parseColor("#91000000"))
             imgBackground.setForeground(overlayDrawable)
 
@@ -82,8 +73,18 @@ class MainActivity : BaseActivity() {
             rvUpcoming.layoutManager = LinearLayoutManager(this@MainActivity , LinearLayoutManager.HORIZONTAL , false)
 
             //setup adapter
-            rvNowPlaying.adapter = NowPlayingAdapter(
-                onCover = { cover  , title ->
+            setupNowPlayingAdapter(binding)
+            setupPopularAdapter(binding)
+            setupTopRateAdapter(binding)
+            setupUpcomingAdapter(binding)
+        }
+    }
+
+    private fun setupNowPlayingAdapter(binding: ActivityMainBinding){
+        val transformation = MultiTransformation(CenterCrop(), RoundedCorners(55))
+        binding.apply {
+            val adapter = NowPlayingAdapter(
+                onCover = { cover, title ->
                     txtTitle.text = title
                     Glide.with(this@MainActivity)
                         .load(cover)
@@ -96,25 +97,129 @@ class MainActivity : BaseActivity() {
                         .into(imgMainCover)
                 },
                 onClick = { id ->
-                    DetailActivity.showDetail(this@MainActivity , id)
+                    DetailActivity.showDetail(this@MainActivity, id)
                 }
             )
 
-            rvPopular.adapter = PopularAdapter{ id ->
-                DetailActivity.showDetail(this@MainActivity , id)
-            }
-            rvTopRate.adapter = TopRateAdapter{ id ->
-                DetailActivity.showDetail(this@MainActivity , id)
-            }
-            rvUpcoming.adapter = UpcomingAdapter{ id ->
-                DetailActivity.showDetail(this@MainActivity , id)
-            }
+            rvNowPlaying.adapter = adapter
 
+            adapter.addLoadStateListener { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        Log.v("testAdapter", "1")
+                        rvNowPlaying.loadSkeleton(R.layout.now_playing_item)
+                        imgMainCover.loadSkeleton()
+                        imgBackground.loadSkeleton()
+                    }
+
+                    is LoadState.Error -> {
+                        Log.v("testAdapter", "2")
+                        rvNowPlaying.loadSkeleton(R.layout.now_playing_item)
+                        imgMainCover.loadSkeleton()
+                        imgBackground.loadSkeleton()
+                    }
+
+                    is LoadState.NotLoading -> {
+                        Log.v("testAdapter", "3")
+                        rvNowPlaying.hideSkeleton()
+                        imgMainCover.hideSkeleton()
+                        imgBackground.hideSkeleton()
+                    }
+                }
+            }
         }
 
     }
 
+    private fun setupPopularAdapter(binding: ActivityMainBinding){
+        binding.apply {
+
+            val adapter = PopularAdapter{ id -> DetailActivity.showDetail(this@MainActivity , id) }
+
+            rvPopular.adapter = adapter
+
+            adapter.addLoadStateListener { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        Log.v("testAdapter", "1")
+                        rvPopular.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.Error -> {
+                        Log.v("testAdapter", "2")
+                        rvPopular.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.NotLoading -> {
+                        Log.v("testAdapter", "3")
+                        rvPopular.hideSkeleton()
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun setupTopRateAdapter(binding: ActivityMainBinding){
+        binding.apply {
+
+            val adapter = TopRateAdapter{ id -> DetailActivity.showDetail(this@MainActivity , id) }
+
+            rvTopRate.adapter = adapter
+
+            adapter.addLoadStateListener { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        Log.v("testAdapter", "1")
+                        rvTopRate.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.Error -> {
+                        Log.v("testAdapter", "2")
+                        rvTopRate.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.NotLoading -> {
+                        Log.v("testAdapter", "3")
+                        rvTopRate.hideSkeleton()
+                    }
+                }
+            }
+
+        }
+    }
+
+    private fun setupUpcomingAdapter(binding: ActivityMainBinding){
+        binding.apply {
+
+            val adapter = UpcomingAdapter{ id -> DetailActivity.showDetail(this@MainActivity , id) }
+
+            rvUpcoming.adapter = adapter
+
+            adapter.addLoadStateListener { loadState ->
+                when (loadState.refresh) {
+                    is LoadState.Loading -> {
+                        Log.v("testAdapter", "1")
+                        rvUpcoming.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.Error -> {
+                        Log.v("testAdapter", "2")
+                        rvUpcoming.loadSkeleton(R.layout.now_playing_item)
+                    }
+
+                    is LoadState.NotLoading -> {
+                        Log.v("testAdapter", "3")
+                        rvUpcoming.hideSkeleton()
+                    }
+                }
+            }
+
+        }
+    }
+
     private fun observeData(binding: ActivityMainBinding) {
+
         lifecycleScope.launch {
             viewModel.mowPlaying.collectLatest { data ->
                 (binding.rvNowPlaying.adapter as NowPlayingAdapter).submitData(data)

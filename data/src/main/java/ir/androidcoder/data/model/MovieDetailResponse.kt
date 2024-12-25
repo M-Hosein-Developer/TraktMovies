@@ -3,7 +3,7 @@ package ir.androidcoder.data.model
 data class MovieDetailResponse(
     val adult: Boolean,
     val backdrop_path: String,
-    val belongs_to_collection: Any,
+    val belongs_to_collection: Any?,
     val budget: Int,
     val genres: List<Genre>,
     val homepage: String,
@@ -35,7 +35,7 @@ data class MovieDetailResponse(
 
     data class ProductionCompany(
         val id: Int,
-        val logo_path: String,
+        val logo_path: String?,
         val name: String,
         val origin_country: String
     )
