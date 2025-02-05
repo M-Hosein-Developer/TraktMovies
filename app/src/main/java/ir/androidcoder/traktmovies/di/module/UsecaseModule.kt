@@ -32,5 +32,5 @@ class UsecaseModule {
 
     @Provides
     @Singleton
-    fun provideSearchUsecase(repository: WatchListRepository) : WatchListUsecase = WatchListUsecase(repository)
+    fun provideWatchListUsecase(repository: WatchListRepository) : WatchListUsecase = WatchListUsecase(repository)
 }
