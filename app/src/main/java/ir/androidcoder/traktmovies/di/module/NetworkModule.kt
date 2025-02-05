@@ -4,6 +4,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import ir.androidcoder.data.model.adapter.NetworkResponseAdapterFactory
 import ir.androidcoder.data.remote.TMDBApiService
 import ir.androidcoder.data.remote.TraktApiService
 import ir.androidcoder.data.remote.interceptor.HeaderInterceptor
@@ -22,7 +23,8 @@ object NetworkModule {
     @Provides
     @Singleton
     @Named("trakt_api")
-    fun provideOkHttpClient(headerInterceptor: HeaderInterceptor): OkHttpClient = OkHttpClient.Builder()
+    fun provideOkHttpClient(headerInterceptor: HeaderInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .build()
 
@@ -38,13 +40,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTraktApiService(@Named("trakt_api") retrofit: Retrofit): TraktApiService = retrofit.create(TraktApiService::class.java)
+    fun provideTraktApiService(@Named("trakt_api") retrofit: Retrofit): TraktApiService =
+        retrofit.create(TraktApiService::class.java)
 
 
     @Provides
     @Singleton
     @Named("TMDB_api")
-    fun provideMoviesOkHttpClient(headerInterceptor: MoviesHeaderInterceptor): OkHttpClient = OkHttpClient.Builder()
+    fun provideMoviesOkHttpClient(headerInterceptor: MoviesHeaderInterceptor): OkHttpClient =
+        OkHttpClient.Builder()
             .addInterceptor(headerInterceptor)
             .build()
 
@@ -52,7 +56,9 @@ object NetworkModule {
     @Provides
     @Singleton
     @Named("TMDB_api")
-    fun provideTMDBRetrofit(@Named("TMDB_api") okHttpClient: OkHttpClient): Retrofit = Retrofit.Builder()
+    fun provideTMDBRetrofit(@Named("TMDB_api") okHttpClient: OkHttpClient): Retrofit =
+        Retrofit.Builder()
+            .addCallAdapterFactory(NetworkResponseAdapterFactory())
             .baseUrl(BuildConfig.BASE_URL_TMDB)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
@@ -60,6 +66,7 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideTMDBApiService(@Named("TMDB_api") retrofit: Retrofit): TMDBApiService = retrofit.create(TMDBApiService::class.java)
+    fun provideTMDBApiService(@Named("TMDB_api") retrofit: Retrofit): TMDBApiService =
+        retrofit.create(TMDBApiService::class.java)
 
 }
