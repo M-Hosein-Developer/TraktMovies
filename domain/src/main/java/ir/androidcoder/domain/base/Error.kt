@@ -1,11 +1,11 @@
 package ir.androidcoder.domain.base
 
-sealed class Error {
+sealed class Error : Exception() {
 
     // server
     object Internet : Error() // retrofit timeout
 
-    data class ServerError(val message: String?) : Error() // 4xx
+    data class ServerError(override val message: String?) : Error() // 4xx
 
     object Unknown : Error() // 5xx
 

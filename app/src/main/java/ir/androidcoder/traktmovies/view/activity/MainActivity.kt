@@ -109,7 +109,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        ErrorActivity.showError(this@MainActivity)
+//                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -139,7 +139,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        ErrorActivity.showError(this@MainActivity)
+//                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -167,7 +167,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        ErrorActivity.showError(this@MainActivity)
+//                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {
@@ -195,7 +195,7 @@ class MainActivity : BaseActivity() {
                     }
 
                     is LoadState.Error -> {
-                        ErrorActivity.showError(this@MainActivity)
+//                        ErrorActivity.showError(this@MainActivity)
                     }
 
                     is LoadState.NotLoading -> {

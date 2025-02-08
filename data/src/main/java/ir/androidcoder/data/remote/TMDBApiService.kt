@@ -7,6 +7,7 @@ import ir.androidcoder.data.model.SearchResponse
 import ir.androidcoder.data.model.TopRatedResponse
 import ir.androidcoder.data.model.UpcomingResponse
 import ir.androidcoder.data.model.YoutubeResponse
+import ir.androidcoder.data.model.adapter.GenericResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -51,12 +52,12 @@ interface TMDBApiService {
         @Path("movie_id") movieId: Int
     ) : Response<YoutubeResponse>
 
-    @GET("search/collection?language=en-US&")
+    @GET("search/collectiofvdvn?")
     suspend fun searchCollection(
         @Query("query") query: String,
         @Query("include_adult") includeAdult: Boolean = false,
         @Query("language") language: String = "en-US",
         @Query("page") page: Int
-    ): SearchResponse
+    ): GenericResponse<SearchResponse>
 
 }

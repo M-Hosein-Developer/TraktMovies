@@ -1,5 +1,6 @@
 package ir.androidcoder.data.model.adapter
 
+import com.example.checkconnectivity.CheckConnectivityModule
 import okhttp3.Request
 import okhttp3.ResponseBody
 import okio.Timeout
@@ -85,8 +86,13 @@ internal class NetworkResponseCall<S : Any , E : Any>(
 
         }
 
-        override fun onFailure(call: Call<S>, t: Throwable) {
-
+        override fun onFailure(call: Call<S>, throwable: Throwable) {
+            val networkResponse = if (CheckConnectivityModule.checkHasConnectionAndInternet() == CheckConnectivityModule.ConnectivityState.HASINTERNET) {
+                NetworkResponse.UnknownError(throwable)
+            } else {
+                NetworkResponse.NetworkError(throwable)
+            }
+            callback.onResponse(this@NetworkResponseCall, Response.success(networkResponse))
         }
 
     })

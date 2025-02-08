@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -20,6 +21,7 @@ import koleton.api.loadSkeleton
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import ir.androidcoder.domain.base.Error
 
 @AndroidEntryPoint
 class SearchActivity : BaseActivity() {
@@ -56,8 +58,8 @@ class SearchActivity : BaseActivity() {
             rvSearch.adapter = adapter
             rvSearch.layoutManager = GridLayoutManager(this@SearchActivity , 2)
 
-            adapter.addLoadStateListener { loadState ->
-                when (loadState.refresh) {
+            adapter.addLoadStateListener {
+                when(val refreshState = it.refresh){
                     is LoadState.Loading -> {
                         lifecycleScope.launch {
                             delay(1000)
@@ -65,12 +67,25 @@ class SearchActivity : BaseActivity() {
                         }
                     }
 
-                    is LoadState.Error -> {
-                        ErrorActivity.showError(this@SearchActivity)
-                    }
-
                     is LoadState.NotLoading -> {
                         rvSearch.hideSkeleton()
+                    }
+
+                    is LoadState.Error -> {
+                        when(refreshState.error){
+                            is Error.Internet -> {
+                                Toast.makeText(this@SearchActivity, "اینترنت", Toast.LENGTH_SHORT).show()
+                            }
+                            is Error.Unknown -> {
+                                Toast.makeText(this@SearchActivity, "نامشخص", Toast.LENGTH_SHORT).show()
+                            }
+                            is Error.ServerError -> {
+                                Toast.makeText(this@SearchActivity, "سرور", Toast.LENGTH_SHORT).show()
+                            }
+                            else -> {
+//                                ErrorActivity.showError(this@SearchActivity)
+                            }
+                        }
                     }
                 }
             }
