@@ -52,7 +52,7 @@ interface TMDBApiService {
         @Path("movie_id") movieId: Int
     ) : Response<YoutubeResponse>
 
-    @GET("search/collectiofvdvn?")
+    @GET("search/collection?")
     suspend fun searchCollection(
         @Query("query") query: String,
         @Query("include_adult") includeAdult: Boolean = false,
